@@ -125,20 +125,24 @@ void MainWindow::createAuthorWidgetSettings()
 
     p_stacked_info_widget->addWidget(p_author_widget);
 
-    QPushButton *p_ok_button = new QPushButton("ok");
-
+    QPushButton *p_close_button = new QPushButton("close");
 
     QVBoxLayout *p_about_layout = new QVBoxLayout;
     p_about_layout->addWidget(p_about_label);
-    p_about_layout->addWidget(p_ok_button);
+    p_about_layout->addWidget(p_close_button);
 
     p_author_widget->setLayout(p_about_layout);
 
-    connect(p_ok_button, SIGNAL(clicked(bool)), p_author_widget, SLOT(close()));
+    connect(p_close_button, SIGNAL(clicked(bool)), p_author_widget, SLOT(close()));
 }
 
 void MainWindow::createLogoWidgetSettings()
-{}
+{
+    p_logo_widget->setText("York's Product");
+    p_logo_widget->setFont(QFont("phosphate", 35));
+    p_logo_widget->setFixedWidth(300);
+    p_logo_widget->setAlignment(Qt::AlignCenter);
+}
 
 //slots
 void MainWindow::processAddNewElement()
