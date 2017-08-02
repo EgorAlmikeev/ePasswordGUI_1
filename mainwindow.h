@@ -39,6 +39,8 @@ public:
     QWidget *p_author_widget;
     QPushButton *p_author_button;
 
+    QString text_buffer;
+
     int scroll_widget_height;
     int element_buttons_height;
 
@@ -51,9 +53,9 @@ public:
 
     void createAuthorWidgetSettings();
 
-    QString takeNameFromUser();
-    QString takePasswordFromUser();
-    QString takeNoteFromUser();
+    void takeNameFromUser();
+    void takePasswordFromUser();
+    void takeNoteFromUser();
 
 signals:
 
@@ -67,6 +69,8 @@ public slots:
 
     void setElementInfo(QWidget*);
     void showAuthorWidget();
+
+    void copyToTextBuffer(QString);
 };
 
 #endif // MAINWINDOW_H

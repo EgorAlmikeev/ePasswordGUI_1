@@ -183,7 +183,7 @@ void MainWindow::processAddNewElement()
 
     qDebug() << "1";
 
-    name = "element";
+
 
 //    name = takeNameFromUser();
 //    password = takePasswordFromUser();
@@ -234,11 +234,29 @@ void MainWindow::showAuthorWidget()
 ElementInfoWidget * MainWindow::createNewInfoLabel(QString *name, QString *password, QString *note)
 {}
 
-QString MainWindow::takeNameFromUser()
+void MainWindow::takeNameFromUser()
+{
+    QString name;
+
+    UserTextInput text_input;
+
+    text_input.setText("Set new name : ");
+    text_input.setTextMaximum(20);
+    text_input.setTextMinimum(6);
+
+    p_stacked_info_widget->addWidget(&text_input);
+    p_stacked_info_widget->setCurrentWidget(&text_input);
+
+    connect(&text_input, SIGNAL(sendText(QString)), SLOT(copyToTextBuffer(QString)));
+}
+
+void MainWindow::takePasswordFromUser()
 {}
 
-QString MainWindow::takePasswordFromUser()
+void MainWindow::takeNoteFromUser()
 {}
 
-QString MainWindow::takeNoteFromUser()
-{}
+void MainWindow::copyToTextBuffer(QString string)
+{
+    text_buffer = string;
+}
