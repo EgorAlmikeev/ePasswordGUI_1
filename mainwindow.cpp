@@ -180,11 +180,13 @@ void MainWindow::processAddNewElement()
 
     qDebug() << "1";
 
+    name = "element";
+
 //    name = takeNameFromUser();
 //    password = takePasswordFromUser();
 //    note = takeNoteFromUser();
 
-//    ElementInfoWidget *p_new_element_widget = createNewInfoLabel(&name, &password, &note);
+    ElementInfoWidget *p_new_element_widget = createNewInfoLabel(&name, &password, &note);
     ElementButton *p_new_element_button = new ElementButton;
     p_new_element_button->setObjectName("new element button");
 
@@ -194,7 +196,7 @@ void MainWindow::processAddNewElement()
     p_new_element_button->setFixedHeight(element_buttons_height);
 
 //    p_new_element_widget->setPairButton(p_new_element_button);
-//    p_new_element_button->setPairWidget(p_new_element_widget);
+    p_new_element_button->setPairWidget(p_new_element_widget);
 
     p_new_element_button->setText(name);
 

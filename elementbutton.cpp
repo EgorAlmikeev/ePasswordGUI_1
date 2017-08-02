@@ -10,6 +10,10 @@ ElementButton::ElementButton(QWidget *parent) : QWidget(parent)
 
     p_central_layout->setMargin(0);
     p_central_layout->setSpacing(0);
+
+    p_central_widget->setFixedHeight(70);
+
+    connect(p_central_widget, SIGNAL(clicked(bool)), SLOT(elementButtonClicked()));
 }
 
 void ElementButton::setPairWidget(ElementInfoWidget *pair)
@@ -19,6 +23,7 @@ void ElementButton::setPairWidget(ElementInfoWidget *pair)
 
 void ElementButton::elementButtonClicked()
 {
+    qDebug("emit");
     emit sendPairWidget(p_pair_widget);
 }
 
