@@ -127,6 +127,9 @@ void MainWindow::createScrollAreaSettings()
     scroll_area_palette.setBrush(p_scroll_area->backgroundRole(), scroll_area_brush);
 
     p_scroll_area->setPalette(scroll_area_palette);
+
+    p_scroll_area_widget_layout->setMargin(0);
+    p_scroll_area_widget_layout->setSpacing(0);
 }
 
 void MainWindow::createBackGround()
