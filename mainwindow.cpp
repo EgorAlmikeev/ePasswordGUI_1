@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
     p_scroll_area_widget->setLayout(p_scroll_area_widget_layout);
 
 
+    createObjectNames();
     createWidgetsPlacement();
     createButtonsSettings();
     createScrollAreaSettings();
@@ -97,6 +98,24 @@ void MainWindow::createButtonsSettings()
     p_author_button->setFixedWidth(110);
 
     connect(p_author_button, SIGNAL(clicked(bool)), SLOT(showAuthorWidget()));
+}
+
+void MainWindow::createObjectNames()
+{
+    p_central_widget->setObjectName("central widget");
+    p_grid_layout->setObjectName("grid");
+
+    p_add_button->setObjectName("add button");
+    p_wipe_button->setObjectName("wipe_button");
+
+    p_stacked_info_widget->setObjectName("stacked widget");
+
+    p_scroll_area->setObjectName("scroll area");
+    p_scroll_area_widget->setObjectName("scroll widget");
+    p_scroll_area_widget_layout->setObjectName("scroll layout");
+
+    p_logo_widget->setObjectName("logo");
+    p_author_button->setObjectName("author button");
 }
 
 void MainWindow::createScrollAreaSettings()
@@ -202,6 +221,7 @@ void MainWindow::setElementInfo(QWidget *)
 void MainWindow::showAuthorWidget()
 {
     p_author_widget = new QWidget;
+    p_author_widget->setObjectName("author widget");
     createAuthorWidgetSettings();
     p_stacked_info_widget->setCurrentWidget(p_author_widget);
 }

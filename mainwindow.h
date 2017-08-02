@@ -46,8 +46,10 @@ public:
     void createButtonsSettings();
     void createScrollAreaSettings();
     void createBackGround();
-    void createAuthorWidgetSettings();
     void createLogoWidgetSettings();
+    void createObjectNames();
+
+    void createAuthorWidgetSettings();
 
     QString takeNameFromUser();
     QString takePasswordFromUser();
