@@ -89,7 +89,7 @@ void MainWindow::createButtonsSettings()
     connect(p_wipe_button, SIGNAL(clicked(bool)), SLOT(processWipeData()));
 
     //author button
-    p_author_button->setText("About project");
+    p_author_button->setText("About author");
     p_author_button->setFont(QFont("phosphate", 15));
     p_author_button->setFlat(true);
     p_author_button->setFixedWidth(110);
@@ -98,7 +98,15 @@ void MainWindow::createButtonsSettings()
 }
 
 void MainWindow::createScrollAreaSettings()
-{}
+{
+    QBrush scroll_area_brush;
+    QPalette scroll_area_palette;
+
+    scroll_area_brush.setTexture(QPixmap(":/images/wood.jpg"));
+    scroll_area_palette.setBrush(p_scroll_area->backgroundRole(), scroll_area_brush);
+
+    p_scroll_area->setPalette(scroll_area_palette);
+}
 
 void MainWindow::createBackGround()
 {
