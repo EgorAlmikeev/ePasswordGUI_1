@@ -10,6 +10,7 @@
 #include <QVBoxLayout>
 #include <QStackedWidget>
 #include <QGridLayout>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -30,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     p_author_button = new QPushButton;
 
     scroll_widget_height = 0;
+    element_buttons_height = 70;
 
     setCentralWidget(p_central_widget);
     p_central_widget->setLayout(p_grid_layout);
@@ -154,15 +156,44 @@ void MainWindow::createLogoWidgetSettings()
 
 //slots
 void MainWindow::processAddNewElement()
-{}
+{
+    QString name, password, note;
+
+    qDebug() << "1";
+
+//    name = takeNameFromUser();
+//    password = takePasswordFromUser();
+//    note = takeNoteFromUser();
+
+//    ElementInfoWidget *p_new_element_widget = createNewInfoLabel(&name, &password, &note);
+    ElementButton *p_new_element_button = new ElementButton;
+    p_new_element_button->setObjectName("new element button");
+
+    qDebug() << "2";
+
+    p_new_element_button->setFixedWidth(p_scroll_area->width() - 10);
+    p_new_element_button->setFixedHeight(element_buttons_height);
+
+//    p_new_element_widget->setPairButton(p_new_element_button);
+//    p_new_element_button->setPairWidget(p_new_element_widget);
+
+    p_new_element_button->setText(name);
+
+    qDebug() << "3";
+
+//    p_stacked_info_widget->addWidget(p_new_element_widget);
+//    p_stacked_info_widget->setCurrentWidget(p_new_element_widget);
+
+    p_scroll_area_widget->resize(p_scroll_area->width() - 2, scroll_widget_height += element_buttons_height);
+    p_scroll_area_widget_layout->addWidget(p_new_element_button);
+
+    qDebug() << "4";
+}
 
 void MainWindow::processRemoveElement()
 {}
 
 void MainWindow::processWipeData()
-{}
-
-void MainWindow::processTakeDataFromUser()
 {}
 
 void MainWindow::setElementInfo(QWidget *)
@@ -176,4 +207,13 @@ void MainWindow::showAuthorWidget()
 }
 
 ElementInfoWidget * MainWindow::createNewInfoLabel(QString *name, QString *password, QString *note)
+{}
+
+QString MainWindow::takeNameFromUser()
+{}
+
+QString MainWindow::takePasswordFromUser()
+{}
+
+QString MainWindow::takeNoteFromUser()
 {}

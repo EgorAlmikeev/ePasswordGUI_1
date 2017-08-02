@@ -40,6 +40,7 @@ public:
     QPushButton *p_author_button;
 
     int scroll_widget_height;
+    int element_buttons_height;
 
     void createWidgetsPlacement();
     void createButtonsSettings();
@@ -47,6 +48,10 @@ public:
     void createBackGround();
     void createAuthorWidgetSettings();
     void createLogoWidgetSettings();
+
+    QString takeNameFromUser();
+    QString takePasswordFromUser();
+    QString takeNoteFromUser();
 
 signals:
 
@@ -57,8 +62,6 @@ public slots:
     void processWipeData();
 
     ElementInfoWidget * createNewInfoLabel(QString *name, QString *password, QString *note);
-
-    void processTakeDataFromUser();
 
     void setElementInfo(QWidget*);
     void showAuthorWidget();
