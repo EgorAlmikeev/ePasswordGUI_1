@@ -39,8 +39,6 @@ public:
     QWidget *p_author_widget;
     QPushButton *p_author_button;
 
-    QString text_buffer;
-
     int scroll_widget_height;
     int element_buttons_height;
 
@@ -53,24 +51,28 @@ public:
 
     void createAuthorWidgetSettings();
 
-    void takeNameFromUser();
-    void takePasswordFromUser();
-    void takeNoteFromUser();
+    QString name_buffer, password_buffer, note_buffer;
 
 signals:
 
+    void nextInput();
+
 public slots:
 
-    void processAddNewElement();
+    void processCreateNewElement();
     void processRemoveElement();
     void processWipeData();
+
+    void processTakeName();
+    void processTakePassword();
+    void processTakeNote();
 
     ElementInfoWidget * createNewInfoLabel(QString *name, QString *password, QString *note);
 
     void setElementInfo(QWidget*);
     void showAuthorWidget();
 
-    void copyToTextBuffer(QString);
+    void copyToNameBuffer(QString);
 };
 
 #endif // MAINWINDOW_H

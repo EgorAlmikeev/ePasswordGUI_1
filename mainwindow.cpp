@@ -76,7 +76,7 @@ void MainWindow::createButtonsSettings()
     p_add_button->setFlat(true);
     p_add_button->setToolTip("Add new data");
 
-    connect(p_add_button, SIGNAL(clicked(bool)), SLOT(processAddNewElement()));
+    connect(p_add_button, SIGNAL(clicked(bool)), SLOT(processTakeName()));
 
     //wipe button
     QPixmap wipe_pix(":/images/wipe_data69x72.png");
@@ -177,47 +177,44 @@ void MainWindow::createLogoWidgetSettings()
 }
 
 //slots
-void MainWindow::processAddNewElement()
+void MainWindow::processCreateNewElement()
 {
-    QString name, password, note;
+    QString name = name_buffer,
+            password = password_buffer,
+            note = note_buffer;
 
-    qDebug() << "1";
 
-
-
-//    name = takeNameFromUser();
-//    password = takePasswordFromUser();
-//    note = takeNoteFromUser();
-
-    ElementInfoWidget *p_new_element_widget = createNewInfoLabel(&name, &password, &note);
-    ElementButton *p_new_element_button = new ElementButton;
-    p_new_element_button->setObjectName("new element button");
-
-    qDebug() << "2";
-
-    p_new_element_button->setFixedWidth(p_scroll_area->width() - 10);
-    p_new_element_button->setFixedHeight(element_buttons_height);
-
-//    p_new_element_widget->setPairButton(p_new_element_button);
-    p_new_element_button->setPairWidget(p_new_element_widget);
-
-    p_new_element_button->setText(name);
-
-    qDebug() << "3";
-
-//    p_stacked_info_widget->addWidget(p_new_element_widget);
-//    p_stacked_info_widget->setCurrentWidget(p_new_element_widget);
-
-    p_scroll_area_widget->resize(p_scroll_area->width() - 2, scroll_widget_height += element_buttons_height);
-    p_scroll_area_widget_layout->addWidget(p_new_element_button);
-
-    qDebug() << "4";
 }
 
 void MainWindow::processRemoveElement()
 {}
 
 void MainWindow::processWipeData()
+{}
+
+void MainWindow::processTakeName()
+{
+    UserTextInput *p_text_input = new UserTextInput;
+    p_text_input->setTextMaximum(20);
+    p_text_input->setTextMinimum(5);
+    p_text_input->setText("set name : ");
+    p_text_input->setFocus();
+
+    p_stacked_info_widget->addWidget(p_text_input);
+    p_stacked_info_widget->setCurrentWidget(p_text_input);
+
+    connect(p_text_input, SIGNAL(sendText(QString)), SLOT(copyToNameBuffer(QString)));
+
+    if(sender() == p_add_button)
+        connect(p_text_input, SIGNAL(sendText(QString)), SLOT(processTakePassword()));
+}
+
+void MainWindow::processTakePassword()
+{
+    qDebug() << "take password";
+}
+
+void MainWindow::processTakeNote()
 {}
 
 void MainWindow::setElementInfo(QWidget *)
@@ -234,29 +231,5 @@ void MainWindow::showAuthorWidget()
 ElementInfoWidget * MainWindow::createNewInfoLabel(QString *name, QString *password, QString *note)
 {}
 
-void MainWindow::takeNameFromUser()
-{
-    QString name;
-
-    UserTextInput text_input;
-
-    text_input.setText("Set new name : ");
-    text_input.setTextMaximum(20);
-    text_input.setTextMinimum(6);
-
-    p_stacked_info_widget->addWidget(&text_input);
-    p_stacked_info_widget->setCurrentWidget(&text_input);
-
-    connect(&text_input, SIGNAL(sendText(QString)), SLOT(copyToTextBuffer(QString)));
-}
-
-void MainWindow::takePasswordFromUser()
+void MainWindow::copyToNameBuffer(QString string)
 {}
-
-void MainWindow::takeNoteFromUser()
-{}
-
-void MainWindow::copyToTextBuffer(QString string)
-{
-    text_buffer = string;
-}
