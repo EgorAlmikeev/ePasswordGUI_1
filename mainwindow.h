@@ -51,7 +51,9 @@ public:
 
     void createAuthorWidgetSettings();
 
-    QString name_buffer, password_buffer, note_buffer;
+    QString name_buffer,
+            password_buffer,
+            note_buffer;
 
 signals:
 
@@ -73,6 +75,8 @@ public slots:
     void showAuthorWidget();
 
     void copyToNameBuffer(QString);
+    void copyToPasswordBuffer(QString);
+    void copyToNoteBuffer(QString);
 };
 
 #endif // MAINWINDOW_H

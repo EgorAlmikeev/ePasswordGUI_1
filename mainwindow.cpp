@@ -232,4 +232,16 @@ ElementInfoWidget * MainWindow::createNewInfoLabel(QString *name, QString *passw
 {}
 
 void MainWindow::copyToNameBuffer(QString string)
-{}
+{
+    name_buffer = string;
+}
+
+void MainWindow::copyToPasswordBuffer(QString string)
+{
+    password_buffer = string;
+}
+
+void MainWindow::copyToNoteBuffer(QString string)
+{
+    note_buffer = string;
+}
