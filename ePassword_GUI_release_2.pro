@@ -26,17 +26,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    usertextinput.cpp \
     userpasswordinput.cpp \
     elementinfowidget.cpp \
-    elementbutton.cpp
+    elementbutton.cpp \
+    usernameinput.cpp
 
 HEADERS += \
         mainwindow.h \
-    usertextinput.h \
     userpasswordinput.h \
     elementinfowidget.h \
-    elementbutton.h
+    elementbutton.h \
+    usernameinput.h
 
 RESOURCES += \
     res/res.qrc

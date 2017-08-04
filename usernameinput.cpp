@@ -1,6 +1,6 @@
-#include "usertextinput.h"
+#include "usernameinput.h"
 
-UserTextInput::UserTextInput(QWidget *parent) : QWidget(parent)
+UserNameInput::UserNameInput(QWidget *parent) : QWidget(parent)
 {
     p_central_grid_layout = new QGridLayout;
     p_label = new QLabel;
@@ -33,31 +33,34 @@ UserTextInput::UserTextInput(QWidget *parent) : QWidget(parent)
     p_close_button->setFixedSize(100, 70);
 }
 
-void UserTextInput::closeButtonClicked()
+void UserNameInput::closeButtonClicked()
 {
     emit sendText(p_line_edit->text());
-    close();
+    setVisible(false);
 }
 
-void UserTextInput::setText(QString text)
+void UserNameInput::setText(QString text)
 {
     p_label->setText(text);
 }
 
-void UserTextInput::setTextMaximum(int max)
+void UserNameInput::setTextMaximum(int max)
 {
     p_line_edit->setMaxLength(max);
 }
 
-void UserTextInput::setTextMinimum(int min)
+void UserNameInput::setTextMinimum(int min)
 {
     text_minimum = min;
 }
 
-void UserTextInput::checkText()
+void UserNameInput::checkText()
 {
     if(p_line_edit->text().length() >= text_minimum && !p_line_edit->text().contains(' '))
         p_close_button->setEnabled(true);
     else
         p_close_button->setEnabled(false);
 }
+
+void UserNameInput::clearInput()
+{}

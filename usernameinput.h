@@ -7,11 +7,11 @@
 #include <QLabel>
 #include <QGridLayout>
 
-class UserTextInput : public QWidget
+class UserNameInput : public QWidget
 {
     Q_OBJECT
 public:
-    explicit UserTextInput(QWidget *parent = nullptr);
+    explicit UserNameInput(QWidget *parent = nullptr);
 
     QGridLayout *p_central_grid_layout;
     QLabel *p_label;
@@ -31,6 +31,7 @@ public slots:
     void setTextMinimum(int);
     void closeButtonClicked();
     void checkText();
+    void clearInput();
 
 };
 

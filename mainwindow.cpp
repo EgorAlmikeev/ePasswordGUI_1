@@ -2,7 +2,7 @@
 #include "elementbutton.h"
 #include "elementinfowidget.h"
 #include "userpasswordinput.h"
-#include "usertextinput.h"
+#include "usernameinput.h"
 
 #include <QLabel>
 #include <QPushButton>
@@ -42,10 +42,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     createObjectNames();
     createWidgetsPlacement();
+
     createButtonsSettings();
     createScrollAreaSettings();
+
     createBackGround();
     createLogoWidgetSettings();
+
+    createTakeNameInputWidget();
+    createTakePasswordInputWidget();
+    createTakeNoteInputWidget();
 }
 
 MainWindow::~MainWindow()
@@ -137,6 +143,29 @@ void MainWindow::createBackGround()
     p_central_widget->setPixmap(QPixmap(":/images/framewood700x523.jpg"));
 }
 
+void MainWindow::createTakeNameInputWidget()
+{
+    p_name_input = new UserNameInput;
+
+    p_name_input->setTextMaximum(20);
+    p_name_input->setTextMinimum(5);
+    p_name_input->setText("set name : ");
+    p_name_input->setFocus();
+
+    p_stacked_info_widget->addWidget(p_name_input);
+
+    connect(p_name_input, SIGNAL(sendText(QString)), SLOT(copyToNameBuffer(QString)));
+}
+
+void MainWindow::createTakePasswordInputWidget()
+{}
+
+void MainWindow::createTakeNoteInputWidget()
+{}
+
+void MainWindow::clearInputWidgets()
+{}
+
 void MainWindow::createAuthorWidgetSettings()
 {
     QLabel *p_about_label = new QLabel(
@@ -194,19 +223,14 @@ void MainWindow::processWipeData()
 
 void MainWindow::processTakeName()
 {
-    UserTextInput *p_text_input = new UserTextInput;
-    p_text_input->setTextMaximum(20);
-    p_text_input->setTextMinimum(5);
-    p_text_input->setText("set name : ");
-    p_text_input->setFocus();
-
-    p_stacked_info_widget->addWidget(p_text_input);
-    p_stacked_info_widget->setCurrentWidget(p_text_input);
-
-    connect(p_text_input, SIGNAL(sendText(QString)), SLOT(copyToNameBuffer(QString)));
+    clearInputWidgets();
+    p_name_input->setVisible(true);
+    p_stacked_info_widget->setCurrentWidget(p_name_input);
 
     if(sender() == p_add_button)
-        connect(p_text_input, SIGNAL(sendText(QString)), SLOT(processTakePassword()));
+        connect(p_name_input, SIGNAL(sendText(QString)), SLOT(processTakePassword()));
+    else
+        disconnect(p_name_input, SIGNAL(sendText(QString)), this, SLOT(processTakePassword()));
 }
 
 void MainWindow::processTakePassword()

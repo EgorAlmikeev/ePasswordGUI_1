@@ -12,8 +12,11 @@ class QStackedWidget;
 
 class ElementButton;
 class ElementInfoWidget;
+class UserNameInput;
 class UserPasswordInput;
-class UserTextInput;
+class UserNoteInput;
+
+class PasswordDataBase;
 
 class MainWindow : public QMainWindow
 {
@@ -22,6 +25,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    PasswordDataBase *p_core;
 
     QLabel *p_central_widget;
     QGridLayout *p_grid_layout;
@@ -42,11 +47,17 @@ public:
     int scroll_widget_height;
     int element_buttons_height;
 
-    void createWidgetsPlacement();
     void createButtonsSettings();
     void createScrollAreaSettings();
-    void createBackGround();
     void createLogoWidgetSettings();
+    void createTakeNameInputWidget();
+    void createTakePasswordInputWidget();
+    void createTakeNoteInputWidget();
+
+    void clearInputWidgets();
+
+    void createWidgetsPlacement();
+    void createBackGround();
     void createObjectNames();
 
     void createAuthorWidgetSettings();
@@ -54,6 +65,12 @@ public:
     QString name_buffer,
             password_buffer,
             note_buffer;
+
+    UserNameInput *p_name_input;
+    UserPasswordInput *p_password_input;
+    UserNoteInput *p_user_note_input;
+
+    static PasswordDataBase * getCoreAccess();
 
 signals:
 
