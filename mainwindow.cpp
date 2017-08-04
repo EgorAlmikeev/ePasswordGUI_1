@@ -12,6 +12,7 @@
 #include <QGridLayout>
 #include <QDebug>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -147,18 +148,29 @@ void MainWindow::createTakeNameInputWidget()
 {
     p_name_input = new UserNameInput;
 
-    p_name_input->setTextMaximum(20);
-    p_name_input->setTextMinimum(5);
-    p_name_input->setText("set name : ");
+    p_name_input->setNameMaximumLength(20);
+    p_name_input->setNameMinimumLength(5);
+    p_name_input->setText("name settings");
     p_name_input->setFocus();
 
     p_stacked_info_widget->addWidget(p_name_input);
 
-    connect(p_name_input, SIGNAL(sendText(QString)), SLOT(copyToNameBuffer(QString)));
+    connect(p_name_input, SIGNAL(sendName(QString)), SLOT(copyToNameBuffer(QString)));
 }
 
 void MainWindow::createTakePasswordInputWidget()
-{}
+{
+    p_password_input = new UserPasswordInput;
+
+    p_password_input->setPasswordMaximumLength(30);
+    p_password_input->setPasswordMinimumLength(5);
+    p_password_input->setText("password settings");
+    p_password_input->setFocus();
+
+    p_stacked_info_widget->addWidget(p_password_input);
+
+    connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(copyToPasswordBuffer(QString)));
+}
 
 void MainWindow::createTakeNoteInputWidget()
 {}
@@ -223,19 +235,30 @@ void MainWindow::processWipeData()
 
 void MainWindow::processTakeName()
 {
+    qDebug() << "taking name";
+
     clearInputWidgets();
     p_name_input->setVisible(true);
     p_stacked_info_widget->setCurrentWidget(p_name_input);
 
     if(sender() == p_add_button)
-        connect(p_name_input, SIGNAL(sendText(QString)), SLOT(processTakePassword()));
+        connect(p_name_input, SIGNAL(sendName(QString)), SLOT(processTakePassword()), Qt::UniqueConnection);
     else
-        disconnect(p_name_input, SIGNAL(sendText(QString)), this, SLOT(processTakePassword()));
+        disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(processTakePassword()));
 }
 
 void MainWindow::processTakePassword()
 {
-    qDebug() << "take password";
+    qDebug() << "taking password";
+
+    clearInputWidgets();
+    p_password_input->setVisible(true);
+    p_stacked_info_widget->setCurrentWidget(p_password_input);
+
+    if(sender() == p_name_input)
+        connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(processTakeNote()));
+    else
+        disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(processTakeNote()));
 }
 
 void MainWindow::processTakeNote()

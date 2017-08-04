@@ -5,18 +5,18 @@ UserNameInput::UserNameInput(QWidget *parent) : QWidget(parent)
     p_central_grid_layout = new QGridLayout;
     p_label = new QLabel;
     p_line_edit = new QLineEdit;
-    p_close_button = new QPushButton("next");
+    p_next_button = new QPushButton("next");
 
     setLayout(p_central_grid_layout);
 
     p_central_grid_layout->addWidget(p_label, 0, 0, 1, 3);
     p_central_grid_layout->addWidget(p_line_edit, 1, 0, 1, 2);
-    p_central_grid_layout->addWidget(p_close_button, 1, 2, 1, 1);
+    p_central_grid_layout->addWidget(p_next_button, 1, 2, 1, 1);
 
-    connect(p_close_button, SIGNAL(clicked(bool)), SLOT(closeButtonClicked()));
+    connect(p_next_button, SIGNAL(clicked(bool)), SLOT(nextButtonClicked()));
     connect(p_line_edit, SIGNAL(textEdited(QString)), SLOT(checkText()));
 
-    p_close_button->setEnabled(false);
+    p_next_button->setEnabled(false);
 
     p_central_grid_layout->setSpacing(0);
     p_central_grid_layout->setMargin(0);
@@ -30,12 +30,12 @@ UserNameInput::UserNameInput(QWidget *parent) : QWidget(parent)
     p_line_edit->setFont(QFont("Aria;", 30));
     p_line_edit->setFocus();
 
-    p_close_button->setFixedSize(100, 70);
+    p_next_button->setFixedSize(100, 70);
 }
 
-void UserNameInput::closeButtonClicked()
+void UserNameInput::nextButtonClicked()
 {
-    emit sendText(p_line_edit->text());
+    emit sendName(p_line_edit->text());
     setVisible(false);
 }
 
@@ -44,22 +44,24 @@ void UserNameInput::setText(QString text)
     p_label->setText(text);
 }
 
-void UserNameInput::setTextMaximum(int max)
+void UserNameInput::setNameMaximumLength(int max)
 {
     p_line_edit->setMaxLength(max);
 }
 
-void UserNameInput::setTextMinimum(int min)
+void UserNameInput::setNameMinimumLength(int min)
 {
     text_minimum = min;
 }
 
 void UserNameInput::checkText()
 {
+    //проверить по базе
+
     if(p_line_edit->text().length() >= text_minimum && !p_line_edit->text().contains(' '))
-        p_close_button->setEnabled(true);
+        p_next_button->setEnabled(true);
     else
-        p_close_button->setEnabled(false);
+        p_next_button->setEnabled(false);
 }
 
 void UserNameInput::clearInput()

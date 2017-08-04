@@ -26,7 +26,9 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    PasswordDataBase *p_core;
+    static PasswordDataBase p_core;
+
+private :
 
     QLabel *p_central_widget;
     QGridLayout *p_grid_layout;
@@ -69,8 +71,6 @@ public:
     UserNameInput *p_name_input;
     UserPasswordInput *p_password_input;
     UserNoteInput *p_user_note_input;
-
-    static PasswordDataBase * getCoreAccess();
 
 signals:
 

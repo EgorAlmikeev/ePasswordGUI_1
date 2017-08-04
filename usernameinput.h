@@ -16,20 +16,23 @@ public:
     QGridLayout *p_central_grid_layout;
     QLabel *p_label;
     QLineEdit *p_line_edit;
-    QPushButton *p_close_button;
+    QPushButton *p_next_button;
 
     int text_minimum;
 
 signals:
 
-    void sendText(QString);
+    void sendName(QString);
 
 public slots:
 
     void setText(QString);
-    void setTextMaximum(int);
-    void setTextMinimum(int);
-    void closeButtonClicked();
+
+    void setNameMaximumLength(int);
+    void setNameMinimumLength(int);
+
+    void nextButtonClicked();
+
     void checkText();
     void clearInput();
 
