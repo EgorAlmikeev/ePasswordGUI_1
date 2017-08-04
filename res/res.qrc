@@ -7,5 +7,6 @@
         <file>remove200x200.png</file>
         <file>wipe_data69x72.png</file>
         <file>wood.jpg</file>
+        <file>background.jpg</file>
     </qresource>
 </RCC>

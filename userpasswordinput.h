@@ -52,7 +52,6 @@ public slots:
     void setText(QString);
 
     void clearInput();
-
 };
 
 #endif // USERPASSWORDINPUT_H

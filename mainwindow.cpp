@@ -141,7 +141,7 @@ void MainWindow::createScrollAreaSettings()
 
 void MainWindow::createBackGround()
 {
-    p_central_widget->setPixmap(QPixmap(":/images/framewood700x523.jpg"));
+    p_central_widget->setPixmap(QPixmap(":/images/background.jpg"));
 }
 
 void MainWindow::createTakeNameInputWidget()

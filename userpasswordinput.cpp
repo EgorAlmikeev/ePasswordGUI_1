@@ -48,6 +48,14 @@ UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
 
     p_next_button->setFixedSize(100, 70);
     p_generate_button->setFixedSize(100, 70);
+
+    p_letters_checkbox->setFont(QFont("Arial", 20));
+    p_digits_checkbox->setFont(QFont("Arial", 20));
+    p_specials_checkbox->setFont(QFont("Arial", 20));
+    p_user_input_checkbox->setFont(QFont("Arial", 20));
+
+    p_label->setFrameStyle(QFrame::Box);
+    p_generate_button->setFixedWidth(p_label->width() / 3);
 }
 
 void UserPasswordInput::userPasswordCheckBoxToggled()
@@ -97,8 +105,10 @@ void UserPasswordInput::generateButtonClicked()
         password = "letters";
     else if(p_digits_checkbox->isChecked())
         password = "digits";
-    else if(p_specials_checkbox)
+    else if(p_specials_checkbox->isChecked())
         password = "specials";
+    else
+        password = "";
 
     p_line_edit->setText(password);
 }
