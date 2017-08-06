@@ -88,7 +88,7 @@ public slots:
 
     ElementInfoWidget * createNewInfoLabel(QString *name, QString *password, QString *note);
 
-    void setElementInfo(QWidget*);
+    void setElementInfoWidget(QWidget*);
     void showAuthorWidget();
 
     void copyToNameBuffer(QString);
