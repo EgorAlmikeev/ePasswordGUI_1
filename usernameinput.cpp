@@ -5,7 +5,7 @@ UserNameInput::UserNameInput(QWidget *parent) : QWidget(parent)
     p_central_grid_layout = new QGridLayout;
     p_label = new QLabel;
     p_line_edit = new QLineEdit;
-    p_next_button = new QPushButton("next");
+    p_next_button = new QPushButton("Next");
 
     setLayout(p_central_grid_layout);
 

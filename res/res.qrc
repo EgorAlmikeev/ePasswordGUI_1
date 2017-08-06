@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/images">
-        <file>framewood700x523.jpg</file>
         <file>add150x72.png</file>
         <file>copy200x175.png</file>
         <file>edit.png</file>

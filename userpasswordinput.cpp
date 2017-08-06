@@ -32,6 +32,7 @@ UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
     connect(p_line_edit, SIGNAL(textEdited(QString)), SLOT(checkPassword()));
     connect(p_line_edit, SIGNAL(textChanged(QString)), SLOT(checkPassword()));
     connect(p_user_input_checkbox, SIGNAL(toggled(bool)), SLOT(userPasswordCheckBoxToggled()));
+    connect(p_next_button, SIGNAL(clicked(bool)), SLOT(nextButtonClicked()));
 
     p_central_grid_layout->setSpacing(0);
     p_central_grid_layout->setMargin(0);

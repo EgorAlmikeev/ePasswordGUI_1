@@ -29,14 +29,16 @@ SOURCES += \
     userpasswordinput.cpp \
     elementinfowidget.cpp \
     elementbutton.cpp \
-    usernameinput.cpp
+    usernameinput.cpp \
+    usernoteinput.cpp
 
 HEADERS += \
         mainwindow.h \
     userpasswordinput.h \
     elementinfowidget.h \
     elementbutton.h \
-    usernameinput.h
+    usernameinput.h \
+    usernoteinput.h
 
 RESOURCES += \
     res/res.qrc

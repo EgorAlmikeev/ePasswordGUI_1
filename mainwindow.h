@@ -70,7 +70,7 @@ private :
 
     UserNameInput *p_name_input;
     UserPasswordInput *p_password_input;
-    UserNoteInput *p_user_note_input;
+    UserNoteInput *p_note_input;
 
 signals:
 

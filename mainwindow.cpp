@@ -3,6 +3,7 @@
 #include "elementinfowidget.h"
 #include "userpasswordinput.h"
 #include "usernameinput.h"
+#include "usernoteinput.h"
 
 #include <QLabel>
 #include <QPushButton>
@@ -151,7 +152,6 @@ void MainWindow::createTakeNameInputWidget()
     p_name_input->setNameMaximumLength(20);
     p_name_input->setNameMinimumLength(5);
     p_name_input->setText("name settings");
-    p_name_input->setFocus();
 
     p_stacked_info_widget->addWidget(p_name_input);
 
@@ -165,7 +165,6 @@ void MainWindow::createTakePasswordInputWidget()
     p_password_input->setPasswordMaximumLength(30);
     p_password_input->setPasswordMinimumLength(5);
     p_password_input->setText("password settings");
-    p_password_input->setFocus();
 
     p_stacked_info_widget->addWidget(p_password_input);
 
@@ -173,10 +172,22 @@ void MainWindow::createTakePasswordInputWidget()
 }
 
 void MainWindow::createTakeNoteInputWidget()
-{}
+{
+    p_note_input = new UserNoteInput;
+
+    p_note_input->setText("note settings");
+
+    p_stacked_info_widget->addWidget(p_note_input);
+
+    connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(copyToNoteBuffer(QString)));
+}
 
 void MainWindow::clearInputWidgets()
-{}
+{
+    p_name_input->clearInput();
+    p_password_input->clearInput();
+    p_note_input->clearInput();
+}
 
 void MainWindow::createAuthorWidgetSettings()
 {
@@ -256,13 +267,24 @@ void MainWindow::processTakePassword()
     p_stacked_info_widget->setCurrentWidget(p_password_input);
 
     if(sender() == p_name_input)
-        connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(processTakeNote()));
+        connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(processTakeNote()), Qt::UniqueConnection);
     else
         disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(processTakeNote()));
 }
 
 void MainWindow::processTakeNote()
-{}
+{
+    qDebug() << "taking note";
+
+    clearInputWidgets();
+    p_note_input->setVisible(true);
+    p_stacked_info_widget->setCurrentWidget(p_note_input);
+
+    if(sender() == p_password_input)
+        connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(processCreateNewElement()), Qt::UniqueConnection);
+    else
+        disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));
+}
 
 void MainWindow::setElementInfo(QWidget *)
 {}
