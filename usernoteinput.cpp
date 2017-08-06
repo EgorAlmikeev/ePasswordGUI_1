@@ -18,6 +18,10 @@ UserNoteInput::UserNoteInput(QWidget *parent) : QWidget(parent)
     p_label->setFixedHeight(60);
 
     p_next_button->setFixedHeight(70);
+
+    p_text_edit->setFont(QFont("Arial", 14));
+
+    connect(p_next_button, SIGNAL(clicked(bool)), SLOT(nextButtonClicked()));
 }
 
 void UserNoteInput::nextButtonClicked()

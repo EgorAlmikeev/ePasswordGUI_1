@@ -85,6 +85,7 @@ void MainWindow::createButtonsSettings()
     p_add_button->setToolTip("Add new data");
 
     connect(p_add_button, SIGNAL(clicked(bool)), SLOT(processTakeName()));
+    connect(p_add_button, SIGNAL(clicked(bool)), SLOT(startInput()));
 
     //wipe button
     QPixmap wipe_pix(":/images/wipe_data69x72.png");
@@ -156,6 +157,7 @@ void MainWindow::createTakeNameInputWidget()
     p_stacked_info_widget->addWidget(p_name_input);
 
     connect(p_name_input, SIGNAL(sendName(QString)), SLOT(copyToNameBuffer(QString)));
+    connect(p_name_input, SIGNAL(sendName(QString)), SLOT(finishInput()));
 }
 
 void MainWindow::createTakePasswordInputWidget()
@@ -169,6 +171,7 @@ void MainWindow::createTakePasswordInputWidget()
     p_stacked_info_widget->addWidget(p_password_input);
 
     connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(copyToPasswordBuffer(QString)));
+    connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(finishInput()));
 }
 
 void MainWindow::createTakeNoteInputWidget()
@@ -180,6 +183,7 @@ void MainWindow::createTakeNoteInputWidget()
     p_stacked_info_widget->addWidget(p_note_input);
 
     connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(copyToNoteBuffer(QString)));
+    connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(finishInput()));
 }
 
 void MainWindow::clearInputWidgets()
@@ -231,6 +235,8 @@ void MainWindow::createLogoWidgetSettings()
 //slots
 void MainWindow::processCreateNewElement()
 {
+    qDebug() << "creating new element";
+
     QString name = name_buffer,
             password = password_buffer,
             note = note_buffer;
@@ -253,9 +259,15 @@ void MainWindow::processTakeName()
     p_stacked_info_widget->setCurrentWidget(p_name_input);
 
     if(sender() == p_add_button)
+    {
         connect(p_name_input, SIGNAL(sendName(QString)), SLOT(processTakePassword()), Qt::UniqueConnection);
+        startInput();
+    }
     else
+    {
         disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(processTakePassword()));
+        finishInput();
+    }
 }
 
 void MainWindow::processTakePassword()
@@ -267,9 +279,15 @@ void MainWindow::processTakePassword()
     p_stacked_info_widget->setCurrentWidget(p_password_input);
 
     if(sender() == p_name_input)
+    {
         connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(processTakeNote()), Qt::UniqueConnection);
+        startInput();
+    }
     else
+    {
         disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(processTakeNote()));
+        finishInput();
+    }
 }
 
 void MainWindow::processTakeNote()
@@ -281,7 +299,10 @@ void MainWindow::processTakeNote()
     p_stacked_info_widget->setCurrentWidget(p_note_input);
 
     if(sender() == p_password_input)
+    {
         connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(processCreateNewElement()), Qt::UniqueConnection);
+        startInput();
+    }
     else
         disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));
 }
@@ -313,4 +334,24 @@ void MainWindow::copyToPasswordBuffer(QString string)
 void MainWindow::copyToNoteBuffer(QString string)
 {
     note_buffer = string;
+}
+
+void MainWindow::setOtherWidgetsEabled(bool boolean)
+{
+    p_add_button->setEnabled(boolean);
+    p_wipe_button->setEnabled(boolean);
+
+    p_scroll_area->setEnabled(boolean);
+
+    p_author_button->setEnabled(boolean);
+}
+
+void MainWindow::startInput()
+{
+    setOtherWidgetsEabled(false);
+}
+
+void MainWindow::finishInput()
+{
+    setOtherWidgetsEabled(true);
 }

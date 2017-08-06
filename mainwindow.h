@@ -94,6 +94,11 @@ public slots:
     void copyToNameBuffer(QString);
     void copyToPasswordBuffer(QString);
     void copyToNoteBuffer(QString);
+
+    void setOtherWidgetsEabled(bool);
+
+    void startInput();
+    void finishInput();
 };
 
 #endif // MAINWINDOW_H

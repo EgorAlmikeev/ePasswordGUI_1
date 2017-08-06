@@ -136,4 +136,11 @@ void UserPasswordInput::setText(QString string)
 }
 
 void UserPasswordInput::clearInput()
-{}
+{
+    p_line_edit->clear();
+
+    p_letters_checkbox->setChecked(false);
+    p_digits_checkbox->setChecked(false);
+    p_specials_checkbox->setChecked(false);
+    p_user_input_checkbox->setChecked(false);
+}
