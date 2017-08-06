@@ -23,7 +23,7 @@ void ElementButton::setPairWidget(ElementInfoWidget *pair)
 
 void ElementButton::elementButtonClicked()
 {
-    qDebug("emit");
+    qDebug("element button clicked");
     emit sendPairWidget(p_pair_widget);
 }
 

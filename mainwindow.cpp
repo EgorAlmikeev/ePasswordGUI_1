@@ -319,7 +319,9 @@ void MainWindow::showAuthorWidget()
 }
 
 ElementInfoWidget * MainWindow::createNewInfoLabel(QString *name, QString *password, QString *note)
-{}
+{
+    ElementInfoWidget *p_new_widget = new ElementInfoWidget;
+}
 
 void MainWindow::copyToNameBuffer(QString string)
 {
