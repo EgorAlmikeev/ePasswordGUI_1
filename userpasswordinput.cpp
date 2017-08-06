@@ -47,7 +47,7 @@ UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
     p_line_edit->setFocus();
     p_line_edit->setReadOnly(true);
 
-    p_next_button->setFixedSize(100, 70);
+    p_next_button->setFixedSize(90, 70);
     p_generate_button->setFixedSize(100, 70);
 
     p_letters_checkbox->setFont(QFont("Arial", 20));
