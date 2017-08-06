@@ -55,7 +55,6 @@ UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
     p_specials_checkbox->setFont(QFont("Arial", 20));
     p_user_input_checkbox->setFont(QFont("Arial", 20));
 
-    p_label->setFrameStyle(QFrame::Box);
     p_generate_button->setFixedWidth(p_label->width() / 3);
 }
 
