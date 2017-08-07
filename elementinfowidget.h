@@ -36,6 +36,9 @@ public:
 signals:
 
 public slots:
+
+    void setPairButton(ElementButton*);
+
 };
 
 #endif // ELEMENTINFOWIDGET_H

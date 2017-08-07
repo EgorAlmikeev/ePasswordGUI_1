@@ -307,7 +307,7 @@ void MainWindow::processTakeNote()
         disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));
 }
 
-void MainWindow::setElementInfo(QWidget *)
+void MainWindow::setElementInfoWidget(QWidget *)
 {}
 
 void MainWindow::showAuthorWidget()
