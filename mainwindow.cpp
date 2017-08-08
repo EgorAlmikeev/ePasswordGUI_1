@@ -237,10 +237,7 @@ void MainWindow::processCreateNewElement()
 {
     qDebug() << "creating new element";
 
-    QString name = name_buffer,
-            password = password_buffer,
-            note = note_buffer;
-
+    ElementInfoWidget * p_new_widget = createNewInfoLabel(name_buffer, password_buffer, note_buffer);
 
 }
 
@@ -307,7 +304,7 @@ void MainWindow::processTakeNote()
         disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));
 }
 
-void MainWindow::setElementInfoWidget(QWidget *)
+void MainWindow::setElementInfoWidget(ElementInfoWidget*)
 {}
 
 void MainWindow::showAuthorWidget()
@@ -318,9 +315,25 @@ void MainWindow::showAuthorWidget()
     p_stacked_info_widget->setCurrentWidget(p_author_widget);
 }
 
-ElementInfoWidget * MainWindow::createNewInfoLabel(QString *name, QString *password, QString *note)
+ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString password, QString note)
 {
     ElementInfoWidget *p_new_widget = new ElementInfoWidget;
+
+    p_new_widget->setName(name);
+    p_new_widget->setPassword(password);
+    p_new_widget->setNote(note);
+
+    ElementButton *p_new_button = new ElementButton;
+    p_new_button->setText(name);
+
+    p_new_widget->setPairButton(p_new_button);
+    p_new_button->setPairWidget(p_new_widget);
+
+    connect(p_new_button, SIGNAL(sendPairWidget(ElementInfoWidget*)), SLOT(setElementInfoWidget(ElementInfoWidget*)));
+
+    connect(p_new_widget, SIGNAL(removeButtonClicked()), SLOT(processRemoveElement()));
+
+    return p_new_widget;
 }
 
 void MainWindow::copyToNameBuffer(QString string)

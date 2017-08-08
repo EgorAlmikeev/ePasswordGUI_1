@@ -93,6 +93,17 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_name_label->setFont(QFont("phosphate", 20));
     p_password_label->setFont(QFont("phosphate", 20));
     p_note_label->setFont(QFont("phosphate", 20));
+
+    //connections
+    connect(p_name_copy_button, SIGNAL(clicked(bool)), SLOT(nameCopyButtonClicked()));
+    connect(p_password_copy_button, SIGNAL(clicked(bool)), SLOT(passwordCopyButtonClicked()));
+    connect(p_note_copy_button, SIGNAL(clicked(bool)), SLOT(noteCopyButtonClicked()));
+
+    connect(p_name_edit_button, SIGNAL(clicked(bool)), SIGNAL(nameEditButtonClicked()));
+    connect(p_password_edit_button, SIGNAL(clicked(bool)), SIGNAL(passwordEditButtonClicked()));
+    connect(p_note_edit_button, SIGNAL(clicked(bool)), SIGNAL(nameEditButtonClicked()));
+
+    connect(p_remove_button, SIGNAL(clicked(bool)), SIGNAL(removeButtonClicked()));
 }
 
 void ElementInfoWidget::setPairButton(ElementButton *p_button)
@@ -116,4 +127,19 @@ void ElementInfoWidget::setNote(QString _note)
 {
     note = _note;
     p_note_label->setText("Note: " + _note);
+}
+
+void ElementInfoWidget::nameCopyButtonClicked()
+{
+    QApplication::clipboard()->setText(name);
+}
+
+void ElementInfoWidget::passwordCopyButtonClicked()
+{
+    QApplication::clipboard()->setText(password);
+}
+
+void ElementInfoWidget::noteCopyButtonClicked()
+{
+    QApplication::clipboard()->setText(note);
 }

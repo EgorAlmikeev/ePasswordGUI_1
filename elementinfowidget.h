@@ -5,6 +5,8 @@
 #include <QGridLayout>
 #include <QPushButton>
 #include <QLabel>
+#include <QApplication>
+#include <QClipboard>
 
 class ElementButton;
 
@@ -43,15 +45,9 @@ signals:
 
     void removeButtonClicked();
 
-    void sendStringToCopy(QString);
-
     void nameEditButtonClicked();
     void passwordEditButtonClicked();
     void noteEditButtonClicked();
-
-    void nameCopyButtonClicked();
-    void passwordCopyButtonClicked();
-    void noteCopyButtonClicked();
 
 public slots:
 
@@ -60,6 +56,12 @@ public slots:
     void setName(QString);
     void setPassword(QString);
     void setNote(QString);
+
+private slots:
+
+    void nameCopyButtonClicked();
+    void passwordCopyButtonClicked();
+    void noteCopyButtonClicked();
 };
 
 #endif // ELEMENTINFOWIDGET_H

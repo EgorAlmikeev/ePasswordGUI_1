@@ -86,9 +86,9 @@ public slots:
     void processTakePassword();
     void processTakeNote();
 
-    ElementInfoWidget * createNewInfoLabel(QString *name, QString *password, QString *note);
+    ElementInfoWidget * createNewInfoLabel(QString name, QString password, QString note);
 
-    void setElementInfoWidget(QWidget*);
+    void setElementInfoWidget(ElementInfoWidget*);
     void showAuthorWidget();
 
     void copyToNameBuffer(QString);
