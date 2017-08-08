@@ -115,7 +115,7 @@ void UserPasswordInput::generateButtonClicked()
 
 void UserPasswordInput::nextButtonClicked()
 {
-    emit sendPassword(password);
+    emit sendPassword(p_line_edit->text());
     setVisible(false);
 }
 
