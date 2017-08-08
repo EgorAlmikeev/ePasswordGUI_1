@@ -14,6 +14,8 @@ class ElementInfoWidget : public QWidget
 public:
     explicit ElementInfoWidget(QWidget *parent = nullptr);
 
+private:
+
     QGridLayout *p_central_grid_layout;
 
     QPushButton *p_name_copy_button;
@@ -33,12 +35,31 @@ public:
 
     ElementButton *p_pair_button;
 
+public:
+
+    QString name, password, note;
+
 signals:
+
+    void removeButtonClicked();
+
+    void sendStringToCopy(QString);
+
+    void nameEditButtonClicked();
+    void passwordEditButtonClicked();
+    void noteEditButtonClicked();
+
+    void nameCopyButtonClicked();
+    void passwordCopyButtonClicked();
+    void noteCopyButtonClicked();
 
 public slots:
 
     void setPairButton(ElementButton*);
 
+    void setName(QString);
+    void setPassword(QString);
+    void setNote(QString);
 };
 
 #endif // ELEMENTINFOWIDGET_H
