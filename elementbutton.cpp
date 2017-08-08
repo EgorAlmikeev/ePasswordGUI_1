@@ -1,4 +1,5 @@
 #include "elementbutton.h"
+#include <QDebug>
 
 ElementButton::ElementButton(QWidget *parent) : QWidget(parent)
 {
@@ -24,6 +25,7 @@ void ElementButton::setPairWidget(ElementInfoWidget *pair)
 void ElementButton::elementButtonClicked()
 {
     qDebug("element button clicked");
+    qDebug() << p_pair_widget->objectName();
     emit sendPairWidget(p_pair_widget);
 }
 

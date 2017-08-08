@@ -20,6 +20,8 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_note_label = new QLabel;
 
     //placement
+    setLayout(p_central_grid_layout);
+
     p_central_grid_layout->addWidget(p_name_label, 0, 0, 1, 1);
     p_central_grid_layout->addWidget(p_name_copy_button, 0, 1, 1, 1);
     p_central_grid_layout->addWidget(p_name_edit_button, 0, 2, 1, 1);
