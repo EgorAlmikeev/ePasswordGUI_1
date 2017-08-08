@@ -265,6 +265,11 @@ void MainWindow::processTakeName()
         disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(processTakePassword()));
         finishInput();
     }
+
+    if(typeid(sender()) == typeid(ElementInfoWidget*))
+        connect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName()), Qt::UniqueConnection);
+    else
+        disconnect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName()));
 }
 
 void MainWindow::processTakePassword()
@@ -285,6 +290,11 @@ void MainWindow::processTakePassword()
         disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(processTakeNote()));
         finishInput();
     }
+
+    if(typeid(sender()) == typeid(ElementInfoWidget*))
+        connect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setName()), Qt::UniqueConnection);
+    else
+        disconnect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setName()));
 }
 
 void MainWindow::processTakeNote()
@@ -302,6 +312,11 @@ void MainWindow::processTakeNote()
     }
     else
         disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));
+
+    if(typeid(sender()) == typeid(ElementInfoWidget*))
+        connect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setName()), Qt::UniqueConnection);
+    else
+        disconnect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setName()));
 }
 
 void MainWindow::setElementInfoWidget(ElementInfoWidget*)
@@ -330,6 +345,10 @@ ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString passwor
     p_new_button->setPairWidget(p_new_widget);
 
     connect(p_new_button, SIGNAL(sendPairWidget(ElementInfoWidget*)), SLOT(setElementInfoWidget(ElementInfoWidget*)));
+
+    connect(p_new_widget, SIGNAL(nameEditButtonClicked()), SLOT(processTakeName()));
+    connect(p_new_widget, SIGNAL(passwordEditButtonClicked()), SLOT(processTakePassword()));
+    connect(p_new_widget, SIGNAL(noteEditButtonClicked()), SLOT(processTakeNote()));
 
     connect(p_new_widget, SIGNAL(removeButtonClicked()), SLOT(processRemoveElement()));
 
