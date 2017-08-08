@@ -16,8 +16,10 @@ public:
 private:
 
     QPushButton *p_central_widget;
-    ElementInfoWidget *p_pair_widget;
     QVBoxLayout *p_central_layout;
+
+public:
+    ElementInfoWidget *p_pair_widget;
 
 signals:
 

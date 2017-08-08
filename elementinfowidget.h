@@ -35,10 +35,10 @@ private:
     QLabel *p_password_label;
     QLabel *p_note_label;
 
-    ElementButton *p_pair_button;
 
 public:
 
+    ElementButton *p_pair_button;
     QString name, password, note;
 
 signals:

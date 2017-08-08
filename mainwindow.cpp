@@ -239,6 +239,8 @@ void MainWindow::processCreateNewElement()
 
     ElementInfoWidget * p_new_widget = createNewInfoLabel(name_buffer, password_buffer, note_buffer);
 
+    p_scroll_area_widget->resize(p_scroll_area->width() - 2, scroll_widget_height += element_buttons_height);
+    p_scroll_area_widget_layout->addWidget(p_new_widget->p_pair_button);
 }
 
 void MainWindow::processRemoveElement()
@@ -319,8 +321,10 @@ void MainWindow::processTakeNote()
         disconnect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setName()));
 }
 
-void MainWindow::setElementInfoWidget(ElementInfoWidget*)
-{}
+void MainWindow::setElementInfoWidget(ElementInfoWidget *p_widget)
+{
+    p_stacked_info_widget->setCurrentWidget(p_widget);
+}
 
 void MainWindow::showAuthorWidget()
 {
@@ -337,6 +341,8 @@ ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString passwor
     p_new_widget->setName(name);
     p_new_widget->setPassword(password);
     p_new_widget->setNote(note);
+
+    p_stacked_info_widget->addWidget(p_new_widget);
 
     ElementButton *p_new_button = new ElementButton;
     p_new_button->setText(name);
