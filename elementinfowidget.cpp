@@ -3,7 +3,12 @@
 ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
 {
     //creating widgets
-    p_central_grid_layout = new QGridLayout;
+    p_central_vertical_layout = new QBoxLayout(QBoxLayout::TopToBottom);
+
+    p_name_horizontal_layout = new QBoxLayout(QBoxLayout::LeftToRight);
+    p_password_horizontal_layout = new QBoxLayout(QBoxLayout::LeftToRight);
+    p_note_horizontal_layout = new QBoxLayout(QBoxLayout::LeftToRight);
+    p_remove_button_horizontal_layout = new QBoxLayout(QBoxLayout::LeftToRight);
 
     p_name_copy_button = new QPushButton;
     p_password_copy_button = new QPushButton;
@@ -20,21 +25,26 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_note_label = new QLabel;
 
     //placement
-    setLayout(p_central_grid_layout);
+    setLayout(p_central_vertical_layout);
 
-    p_central_grid_layout->addWidget(p_name_label, 0, 0, 1, 1);
-    p_central_grid_layout->addWidget(p_name_copy_button, 0, 2, 1, 1);
-    p_central_grid_layout->addWidget(p_name_edit_button, 0, 3, 1, 1);
+    p_name_horizontal_layout->addWidget(p_name_label);
+    p_name_horizontal_layout->addWidget(p_name_copy_button);
+    p_name_horizontal_layout->addWidget(p_name_edit_button);
 
-    p_central_grid_layout->addWidget(p_password_label, 1, 0, 1, 1);
-    p_central_grid_layout->addWidget(p_password_copy_button, 1, 2, 1, 1);
-    p_central_grid_layout->addWidget(p_password_edit_button, 1, 3, 1, 1);
+    p_password_horizontal_layout->addWidget(p_password_label);
+    p_password_horizontal_layout->addWidget(p_password_copy_button);
+    p_password_horizontal_layout->addWidget(p_password_edit_button);
 
-    p_central_grid_layout->addWidget(p_note_label, 2, 0, 2, 1);
-    p_central_grid_layout->addWidget(p_note_copy_button, 2, 2, 1, 1);
-    p_central_grid_layout->addWidget(p_note_edit_button, 2, 3, 1, 1);
+    p_note_horizontal_layout->addWidget(p_note_label);
+    p_note_horizontal_layout->addWidget(p_note_copy_button);
+    p_note_horizontal_layout->addWidget(p_note_edit_button);
 
-    p_central_grid_layout->addWidget(p_remove_button, 4, 2, 1, 1);
+    p_remove_button_horizontal_layout->addWidget(p_remove_button);
+
+    p_central_vertical_layout->addLayout(p_name_horizontal_layout);
+    p_central_vertical_layout->addLayout(p_password_horizontal_layout);
+    p_central_vertical_layout->addLayout(p_note_horizontal_layout);
+    p_central_vertical_layout->addLayout(p_remove_button_horizontal_layout);
 
     p_name_label->setFrameStyle(QFrame::Box);
     p_password_label->setFrameStyle(QFrame::Box);
@@ -90,9 +100,9 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_password_label->setFrameStyle(QFrame::Box);
     p_note_label->setFrameStyle(QFrame::Box);
 
-    p_name_label->setFixedSize(310, 70);
-    p_password_label->setFixedSize(310, 70);
-    p_note_label->setFixedSize(310, 120);
+    p_name_label->setFixedSize(300, 70);
+    p_password_label->setFixedSize(300, 70);
+    p_note_label->setFixedSize(300, 120);
 
     p_note_label->setAlignment(Qt::AlignTop);
 

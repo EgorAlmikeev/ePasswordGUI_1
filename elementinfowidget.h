@@ -2,7 +2,7 @@
 #define ELEMENTINFOWIDGET_H
 
 #include <QWidget>
-#include <QGridLayout>
+#include <QBoxLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QApplication>
@@ -18,7 +18,12 @@ public:
 
 private:
 
-    QGridLayout *p_central_grid_layout;
+    QBoxLayout *p_central_vertical_layout;
+
+    QBoxLayout *p_name_horizontal_layout;
+    QBoxLayout *p_password_horizontal_layout;
+    QBoxLayout *p_note_horizontal_layout;
+    QBoxLayout *p_remove_button_horizontal_layout;
 
     QPushButton *p_name_copy_button;
     QPushButton *p_name_edit_button;

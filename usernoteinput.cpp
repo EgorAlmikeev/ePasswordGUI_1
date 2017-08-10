@@ -28,10 +28,10 @@ void UserNoteInput::nextButtonClicked()
 {
     QString buffer = p_text_edit->toPlainText();
 
-    if(buffer.contains('\n'))
-        for(int i = 0; i < buffer.length(); ++i)
-            if(buffer.at(i) == '\n')
-                buffer[i] = ' ';
+//    if(buffer.contains('\n'))
+//        for(int i = 0; i < buffer.length(); ++i)
+//            if(buffer.at(i) == '\n')
+//                buffer[i] = ' ';
 
     emit sendNote(buffer);
     setVisible(false);
