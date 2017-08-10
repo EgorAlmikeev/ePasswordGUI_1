@@ -23,18 +23,22 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     setLayout(p_central_grid_layout);
 
     p_central_grid_layout->addWidget(p_name_label, 0, 0, 1, 1);
-    p_central_grid_layout->addWidget(p_name_copy_button, 0, 1, 1, 1);
-    p_central_grid_layout->addWidget(p_name_edit_button, 0, 2, 1, 1);
+    p_central_grid_layout->addWidget(p_name_copy_button, 0, 2, 1, 1);
+    p_central_grid_layout->addWidget(p_name_edit_button, 0, 3, 1, 1);
 
     p_central_grid_layout->addWidget(p_password_label, 1, 0, 1, 1);
-    p_central_grid_layout->addWidget(p_password_copy_button, 1, 1, 1, 1);
-    p_central_grid_layout->addWidget(p_password_edit_button, 1, 2, 1, 1);
+    p_central_grid_layout->addWidget(p_password_copy_button, 1, 2, 1, 1);
+    p_central_grid_layout->addWidget(p_password_edit_button, 1, 3, 1, 1);
 
     p_central_grid_layout->addWidget(p_note_label, 2, 0, 2, 1);
-    p_central_grid_layout->addWidget(p_note_copy_button, 2, 1, 1, 1);
-    p_central_grid_layout->addWidget(p_note_edit_button, 2, 2, 1, 1);
+    p_central_grid_layout->addWidget(p_note_copy_button, 2, 2, 1, 1);
+    p_central_grid_layout->addWidget(p_note_edit_button, 2, 3, 1, 1);
 
-    p_central_grid_layout->addWidget(p_remove_button, 4, 1, 1, 1);
+    p_central_grid_layout->addWidget(p_remove_button, 4, 2, 1, 1);
+
+    p_name_label->setFrameStyle(QFrame::Box);
+    p_password_label->setFrameStyle(QFrame::Box);
+    p_note_label->setFrameStyle(QFrame::Box);
 
     //buttons icon settings
     QPixmap copy_pix(":/images/copy200x200.png");
@@ -90,7 +94,7 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_password_label->setFixedSize(310, 70);
     p_note_label->setFixedSize(310, 120);
 
-    p_note_label->setAlignment(Qt::AlignCenter);
+    p_note_label->setAlignment(Qt::AlignTop);
 
     p_name_label->setFont(QFont("phosphate", 20));
     p_password_label->setFont(QFont("phosphate", 20));

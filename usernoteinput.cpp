@@ -43,4 +43,6 @@ void UserNoteInput::setText(QString string)
 }
 
 void UserNoteInput::clearInput()
-{}
+{
+    p_text_edit->clear();
+}
