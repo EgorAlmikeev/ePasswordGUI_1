@@ -164,7 +164,7 @@ void MainWindow::createTakePasswordInputWidget()
 {
     p_password_input = new UserPasswordInput;
 
-    p_password_input->setPasswordMaximumLength(30);
+    p_password_input->setPasswordMaximumLength(20);
     p_password_input->setPasswordMinimumLength(5);
     p_password_input->setText("password settings");
 

@@ -7,6 +7,8 @@
 #include <QLabel>
 #include <QApplication>
 #include <QClipboard>
+#include <QLineEdit>
+#include <QTextEdit>
 
 class ElementButton;
 
