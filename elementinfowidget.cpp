@@ -117,7 +117,7 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
 
     connect(p_name_edit_button, SIGNAL(clicked(bool)), SIGNAL(nameEditButtonClicked()));
     connect(p_password_edit_button, SIGNAL(clicked(bool)), SIGNAL(passwordEditButtonClicked()));
-    connect(p_note_edit_button, SIGNAL(clicked(bool)), SIGNAL(nameEditButtonClicked()));
+    connect(p_note_edit_button, SIGNAL(clicked(bool)), SIGNAL(noteEditButtonClicked()));
 
     connect(p_remove_button, SIGNAL(clicked(bool)), SIGNAL(removeButtonClicked()));
 }

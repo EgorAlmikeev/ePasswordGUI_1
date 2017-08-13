@@ -270,10 +270,10 @@ void MainWindow::processTakeName()
         finishInput();
     }
 
-    if(typeid(sender()) == typeid(ElementInfoWidget*))
-        connected = connect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName()), Qt::UniqueConnection);
+    if(sender()->objectName() == "info widget")
+        connected = connect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)), Qt::UniqueConnection);
     else if(connected)
-        disconnect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName()));
+        disconnect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)));
 }
 
 void MainWindow::processTakePassword()
@@ -297,10 +297,10 @@ void MainWindow::processTakePassword()
         finishInput();
     }
 
-    if(typeid(sender()) == typeid(ElementInfoWidget*))
-        connected = connect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword()), Qt::UniqueConnection);
+    if(sender()->objectName() == "info widget")
+        connected = connect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)), Qt::UniqueConnection);
     else if(connected)
-        disconnect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword()));
+        disconnect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)));
 }
 
 void MainWindow::processTakeNote()
@@ -321,10 +321,10 @@ void MainWindow::processTakeNote()
     else
         disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));
 
-    if(typeid(sender()) == typeid(ElementInfoWidget*))
-        connected = connect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote()), Qt::UniqueConnection);
+    if(sender()->objectName() == "info widget")
+        connected = connect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)), Qt::UniqueConnection);
     else if(connected)
-        disconnect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote()));
+        disconnect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)));
 }
 
 void MainWindow::setElementInfoWidget(ElementInfoWidget *p_widget)
@@ -348,7 +348,7 @@ ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString passwor
     p_new_widget->setName(name);
     p_new_widget->setPassword(password);
     p_new_widget->setNote(note);
-    p_new_widget->setObjectName("new widget " + name);
+    p_new_widget->setObjectName("info widget");
 
     p_stacked_info_widget->addWidget(p_new_widget);
 
