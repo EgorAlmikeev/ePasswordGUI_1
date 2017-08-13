@@ -1,4 +1,5 @@
 #include "elementinfowidget.h"
+#include "elementbutton.h"
 
 ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
 {
@@ -131,6 +132,7 @@ void ElementInfoWidget::setName(QString _name)
 {
     name = _name;
     p_name_label->setText("Name: " + _name);
+    p_pair_button->setText(_name);
 }
 
 void ElementInfoWidget::setPassword(QString _password)

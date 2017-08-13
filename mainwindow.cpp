@@ -345,18 +345,17 @@ ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString passwor
 {
     ElementInfoWidget *p_new_widget = new ElementInfoWidget;
 
+    ElementButton *p_new_button = new ElementButton;
+
+    p_new_widget->setPairButton(p_new_button);
+    p_new_button->setPairWidget(p_new_widget);
+
     p_new_widget->setName(name);
     p_new_widget->setPassword(password);
     p_new_widget->setNote(note);
     p_new_widget->setObjectName("info widget");
 
     p_stacked_info_widget->addWidget(p_new_widget);
-
-    ElementButton *p_new_button = new ElementButton;
-    p_new_button->setText(name);
-
-    p_new_widget->setPairButton(p_new_button);
-    p_new_button->setPairWidget(p_new_widget);
 
     connect(p_new_button, SIGNAL(sendPairWidget(ElementInfoWidget*)), SLOT(setElementInfoWidget(ElementInfoWidget*)));
 
