@@ -12,6 +12,7 @@ UserNoteInput::UserNoteInput(QWidget *parent) : QWidget(parent)
     p_central_vertical_layout->addWidget(p_label);
     p_central_vertical_layout->addWidget(p_text_edit);
     p_central_vertical_layout->addWidget(p_next_button);
+    p_central_vertical_layout->setAlignment(Qt::AlignCenter);
 
     p_label->setFont(QFont("phosphate", 35));
     p_label->setAlignment(Qt::AlignCenter);
@@ -19,6 +20,7 @@ UserNoteInput::UserNoteInput(QWidget *parent) : QWidget(parent)
 
     p_next_button->setFixedHeight(70);
 
+    p_text_edit->setFixedWidth(300);
     p_text_edit->setFont(QFont("Arial", 20));
 
     connect(p_next_button, SIGNAL(clicked(bool)), SLOT(nextButtonClicked()));
