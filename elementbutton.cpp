@@ -13,6 +13,7 @@ ElementButton::ElementButton(QWidget *parent) : QWidget(parent)
     p_central_layout->setSpacing(0);
 
     p_central_widget->setFixedHeight(70);
+    setFixedHeight(70);
 
     connect(p_central_widget, SIGNAL(clicked(bool)), SLOT(elementButtonClicked()));
 }
@@ -32,24 +33,10 @@ void ElementButton::elementButtonClicked()
 void ElementButton::setText(QString text)
 {
     p_central_widget->setText(text);
+    button_text = text;
 }
 
-bool ElementButton::operator > (ElementButton b2)
+bool element_buttons_compare(ElementButton* b1, ElementButton* b2)
 {
-    return this->p_central_widget->text() > b2.p_central_widget->text() ? true : false;
-}
-
-bool ElementButton::operator < (ElementButton b2)
-{
-    return this->p_central_widget->text() < b2.p_central_widget->text() ? true : false;
-}
-
-bool ElementButton::operator == (ElementButton b2)
-{
-    return this->p_central_widget->text() == b2.p_central_widget->text() ? true : false;
-}
-
-bool ElementButton::operator != (ElementButton b2)
-{
-    return this->p_central_widget->text() != b2.p_central_widget->text() ? true : false;
+    return b1->button_text < b2->button_text ? true : false;
 }

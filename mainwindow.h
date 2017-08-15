@@ -5,7 +5,6 @@
 #include "passworddatabase.h"
 
 class QLabel;
-class QMap;
 class QGridLayout;
 class QPushButton;
 class QScrollArea;
@@ -46,7 +45,7 @@ private :
     QWidget *p_author_widget;
     QPushButton *p_author_button;
 
-
+    QList<ElementButton*> element_buttons_list;
 
     int scroll_widget_height;
     int element_buttons_height;
@@ -80,6 +79,7 @@ signals:
 
 public slots:
 
+    void processRefreshScrollArea();
     void processCreateNewElement();
     void processRemoveElement();
     void processWipeData();

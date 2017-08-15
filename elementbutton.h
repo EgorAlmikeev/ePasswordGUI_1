@@ -19,12 +19,9 @@ private:
     QVBoxLayout *p_central_layout;
 
 public:
-    ElementInfoWidget *p_pair_widget;
 
-    bool operator > (ElementButton);
-    bool operator < (ElementButton);
-    bool operator == (ElementButton);
-    bool operator != (ElementButton);
+    QString button_text;
+    ElementInfoWidget *p_pair_widget;
 
 signals:
 
@@ -37,5 +34,7 @@ public slots:
     void setText(QString);
 
 };
+
+bool element_buttons_compare(ElementButton* b1, ElementButton* b2);
 
 #endif // ELEMENTPUTTON_H

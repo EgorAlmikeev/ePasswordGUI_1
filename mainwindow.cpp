@@ -13,6 +13,8 @@
 #include <QGridLayout>
 #include <QDebug>
 
+#include <QtAlgorithms>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -31,8 +33,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     p_logo_widget = new QLabel;
     p_author_button = new QPushButton;
-
-
 
     scroll_widget_height = 0;
     element_buttons_height = 70;
@@ -235,14 +235,31 @@ void MainWindow::createLogoWidgetSettings()
 }
 
 //slots
+void MainWindow::processRefreshScrollArea()
+{
+    qDebug() << "refresh scroll area";
+
+    std::sort(element_buttons_list.begin(), element_buttons_list.end(), element_buttons_compare);
+
+    scroll_widget_height = 0;
+
+    delete p_scroll_area_widget_layout;
+
+    p_scroll_area_widget_layout = new QVBoxLayout;
+    p_scroll_area_widget->setLayout(p_scroll_area_widget_layout);
+
+    for(QList<ElementButton*>::iterator iter = element_buttons_list.begin(); iter != element_buttons_list.end(); ++iter)
+    {
+        p_scroll_area_widget->resize(p_scroll_area->width() - 2, scroll_widget_height += (*iter)->height());
+        p_scroll_area_widget_layout->addWidget((*iter));
+    }
+}
+
 void MainWindow::processCreateNewElement()
 {
     qDebug() << "creating new element";
-
-    ElementInfoWidget * p_new_widget = createNewInfoLabel(name_buffer, password_buffer, note_buffer);
-
-    p_scroll_area_widget->resize(p_scroll_area->width() - 2, scroll_widget_height += element_buttons_height);
-    p_scroll_area_widget_layout->addWidget(p_new_widget->p_pair_button);
+    createNewInfoLabel(name_buffer, password_buffer, note_buffer);
+    processRefreshScrollArea();
 }
 
 void MainWindow::processRemoveElement()
@@ -358,6 +375,7 @@ ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString passwor
     p_new_widget->setObjectName("info widget");
 
     p_stacked_info_widget->addWidget(p_new_widget);
+    element_buttons_list << p_new_button;
 
     connect(p_new_button, SIGNAL(sendPairWidget(ElementInfoWidget*)), SLOT(setElementInfoWidget(ElementInfoWidget*)));
 
