@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
     p_logo_widget = new QLabel;
     p_author_button = new QPushButton;
 
+
+
     scroll_widget_height = 0;
     element_buttons_height = 70;
 

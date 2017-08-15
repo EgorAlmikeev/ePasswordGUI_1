@@ -30,7 +30,9 @@ SOURCES += \
     elementinfowidget.cpp \
     elementbutton.cpp \
     usernameinput.cpp \
-    usernoteinput.cpp
+    usernoteinput.cpp \
+    passworddatabase.cpp \
+    cryptor.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +40,9 @@ HEADERS += \
     elementinfowidget.h \
     elementbutton.h \
     usernameinput.h \
-    usernoteinput.h
+    usernoteinput.h \
+    cryptor.h \
+    passworddatabase.h
 
 RESOURCES += \
     res/res.qrc

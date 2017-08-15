@@ -33,3 +33,23 @@ void ElementButton::setText(QString text)
 {
     p_central_widget->setText(text);
 }
+
+bool ElementButton::operator > (ElementButton b2)
+{
+    return this->p_central_widget->text() > b2.p_central_widget->text() ? true : false;
+}
+
+bool ElementButton::operator < (ElementButton b2)
+{
+    return this->p_central_widget->text() < b2.p_central_widget->text() ? true : false;
+}
+
+bool ElementButton::operator == (ElementButton b2)
+{
+    return this->p_central_widget->text() == b2.p_central_widget->text() ? true : false;
+}
+
+bool ElementButton::operator != (ElementButton b2)
+{
+    return this->p_central_widget->text() != b2.p_central_widget->text() ? true : false;
+}

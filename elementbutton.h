@@ -21,6 +21,11 @@ private:
 public:
     ElementInfoWidget *p_pair_widget;
 
+    bool operator > (ElementButton);
+    bool operator < (ElementButton);
+    bool operator == (ElementButton);
+    bool operator != (ElementButton);
+
 signals:
 
     void sendPairWidget(ElementInfoWidget*);

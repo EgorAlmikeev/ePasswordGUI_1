@@ -2,8 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "passworddatabase.h"
 
 class QLabel;
+class QMap;
 class QGridLayout;
 class QPushButton;
 class QScrollArea;
@@ -16,8 +18,6 @@ class UserNameInput;
 class UserPasswordInput;
 class UserNoteInput;
 
-class PasswordDataBase;
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -26,7 +26,7 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    static PasswordDataBase p_core;
+    PasswordDataBase core;
 
 private :
 
@@ -45,6 +45,8 @@ private :
     QLabel *p_logo_widget;
     QWidget *p_author_widget;
     QPushButton *p_author_button;
+
+
 
     int scroll_widget_height;
     int element_buttons_height;
