@@ -34,6 +34,22 @@ public:
 
     int password_minimum_length;
 
+
+
+
+    //password simbols generation
+    std::string generatePassword();
+    char *password_simbols = nullptr;
+
+    void setPasswordSimbolsDigits();
+    void setPasswordSimbolsLetters();
+    void setPasswordSimbolsSpecials();
+    void setPasswordSimbolsDigitsLetters();
+    void setPasswordSimbolsDigitsSpecials();
+    void setPasswordSimbolsLettersSpecials();
+    void setPasswordSimbolsDigitsLettersSpecials();
+    //end of password simbols generation
+
 signals:
 
     void sendPassword(QString);

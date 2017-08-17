@@ -1,4 +1,5 @@
 #include "usernameinput.h"
+#include "mainwindow.h"
 
 UserNameInput::UserNameInput(QWidget *parent) : QWidget(parent)
 {
@@ -56,12 +57,16 @@ void UserNameInput::setNameMinimumLength(int min)
 
 void UserNameInput::checkText()
 {
-    //проверить по базе
-
-    if(p_line_edit->text().length() >= text_minimum && !p_line_edit->text().contains(' '))
+    if(p_line_edit->text().length() >= text_minimum && !p_line_edit->text().contains(' ') && !MainWindow::p_core->element_multi_map.contains(p_line_edit->text() + '\n'))
+    {
         p_next_button->setEnabled(true);
+        p_line_edit->setStyleSheet( "color : black;" );
+    }
     else
+    {
         p_next_button->setEnabled(false);
+        p_line_edit->setStyleSheet( "color : red;" );
+    }
 }
 
 void UserNameInput::clearInput()

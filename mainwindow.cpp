@@ -13,8 +13,8 @@
 #include <QGridLayout>
 #include <QDebug>
 
-#include <QtAlgorithms>
 
+PasswordDataBase * MainWindow::p_core;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     p_logo_widget = new QLabel;
     p_author_button = new QPushButton;
+
+    p_core = new PasswordDataBase;
 
     scroll_widget_height = 0;
     element_buttons_height = 70;

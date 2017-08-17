@@ -94,22 +94,23 @@ void UserPasswordInput::checkPassword()
 void UserPasswordInput::generateButtonClicked()
 {
     if(p_letters_checkbox->isChecked() && p_digits_checkbox->isChecked() && p_specials_checkbox->isChecked())
-        password = "letters+digits+specials";
+        setPasswordSimbolsDigitsLettersSpecials();
     else if(p_letters_checkbox->isChecked() && p_digits_checkbox->isChecked())
-        password = "letters+digits";
+        setPasswordSimbolsDigitsLetters();
     else if(p_letters_checkbox->isChecked() && p_specials_checkbox->isChecked())
-        password = "letters+specials";
+        setPasswordSimbolsLettersSpecials();
     else if(p_digits_checkbox->isChecked() && p_specials_checkbox->isChecked())
-        password = "digits+specials";
+        setPasswordSimbolsDigitsSpecials();
     else if(p_letters_checkbox->isChecked())
-        password = "letters";
+        setPasswordSimbolsLetters();
     else if(p_digits_checkbox->isChecked())
-        password = "digits";
+        setPasswordSimbolsDigits();
     else if(p_specials_checkbox->isChecked())
-        password = "specials";
+        setPasswordSimbolsSpecials();
     else
         password = "";
 
+    password = QString::fromStdString(generatePassword());
     p_line_edit->setText(password);
 }
 
@@ -143,3 +144,98 @@ void UserPasswordInput::clearInput()
     p_specials_checkbox->setChecked(false);
     p_user_input_checkbox->setChecked(false);
 }
+
+//password simbols generation functions
+std::string UserPasswordInput::generatePassword()
+{
+    std::string password;
+
+    short password_maximum_length = 25;
+    short password_simbols_length = strlen(password_simbols);
+
+    srand(time(NULL));
+
+    for(int i = 0; i < password_maximum_length; ++i)
+        password += password_simbols[rand() % password_simbols_length];
+
+    return password;
+}
+
+void UserPasswordInput::setPasswordSimbolsDigits()
+{
+    password_simbols = new char[11];
+
+    for(int i = 0; i < 10; ++i)
+        password_simbols[i] = i + 48;
+
+    password_simbols[10] = '\0';
+}
+void UserPasswordInput::setPasswordSimbolsLetters()
+{
+    password_simbols = new char[53];
+
+    for(int i = 0; i < 26; ++i)
+        password_simbols[i] = i + 65;
+    for(int i = 26; i < 52; ++i)
+        password_simbols[i] = i + 71;
+
+    password_simbols[52] = '\0';
+}
+void UserPasswordInput::setPasswordSimbolsSpecials()
+{
+    password_simbols = new char[16];
+
+    for(int i = 0; i < 15; ++i)
+        password_simbols[i] = i + 33;
+
+    password_simbols[15] = '\0';
+}
+void UserPasswordInput::setPasswordSimbolsDigitsLetters()
+{
+    password_simbols = new char[63];
+
+    for(int i = 0; i < 26; ++i)
+        password_simbols[i] = i + 65;
+    for(int i = 26; i < 52; ++i)
+        password_simbols[i] = i + 71;
+    for(int i = 52; i < 62; ++i)
+        password_simbols[i] = i - 4;
+
+    password_simbols[62] = '\0';
+}
+void UserPasswordInput::setPasswordSimbolsDigitsSpecials()
+{
+    password_simbols = new char[26];
+
+    for(int i = 0; i < 25; ++i)
+        password_simbols[i] = i + 33;
+
+    password_simbols[25] = '\0';
+}
+void UserPasswordInput::setPasswordSimbolsLettersSpecials()
+{
+    password_simbols = new char[68];
+
+    for(int i = 0; i < 26; ++i)
+        password_simbols[i] = i + 65;
+    for(int i = 26; i < 52; ++i)
+        password_simbols[i] = i + 71;
+    for(int i = 52; i < 67; ++i)
+        password_simbols[i] = i - 19;
+
+    password_simbols[67] = '\0';
+}
+void UserPasswordInput::setPasswordSimbolsDigitsLettersSpecials()
+{
+    password_simbols = new char[78];
+
+    for(int i = 0; i < 26; ++i)
+        password_simbols[i] = i + 65;
+    for(int i = 26; i < 52; ++i)
+        password_simbols[i] = i + 71;
+    for(int i = 52; i < 77; ++i)
+        password_simbols[i] = i - 19;
+
+    password_simbols[77] = '\0';
+}
+//end of password simbols generation functions

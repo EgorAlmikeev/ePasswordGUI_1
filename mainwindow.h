@@ -25,7 +25,7 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    PasswordDataBase core;
+    static PasswordDataBase *p_core;
 
 private :
 

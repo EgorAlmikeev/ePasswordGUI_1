@@ -9,48 +9,34 @@
 
 class PasswordDataBase
 {
-protected :
+private :
 
     QFile data_file;
     Cryptor cryptor;
-    char *password_simbols = nullptr;
-    QMultiMap<QString, QString>::iterator iter;
-    QMultiMap<QString, QString> element_multi_map;
 
-    //password simbols generation functions
-    void setPasswordSimbolsDigits();
-    void setPasswordSimbolsLetters();
-    void setPasswordSimbolsSpecials();
-    void setPasswordSimbolsDigitsLetters();
-    void setPasswordSimbolsDigitsSpecials();
-    void setPasswordSimbolsLettersSpecials();
-    void setPasswordSimbolsDigitsLettersSpecials();
-    //end of password simbols generation functions
+    QMultiMap<QString, QString>::iterator iter;
+
+public :
+
+    QMultiMap<QString, QString> element_multi_map;
 
     void readToMap();
     void writeFromMap();
 
-    void showMap();
-    void showMenu();
+public :
 
-    void addElement();
-    void showElement();
-    void editElement();
-    void removeElement();
+    void addElement(QString _name, QString _password, QString _note);
+    void removeElement(QString _name);
 
     void wipeDataFile();
-
-    std::string generatePassword();
 
     void encryptDataFile();
     void decryptDataFile();
 
-    int getSwitchChoice(int min, int max);
-
 public :
 
-    void start();
-    void finish();
+    void decryptReadEncrypt();
+    void decryptWriteEncrypt();
 
     PasswordDataBase();
     ~PasswordDataBase();
