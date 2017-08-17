@@ -56,6 +56,10 @@ signals:
     void passwordEditButtonClicked();
     void noteEditButtonClicked();
 
+    void nameEdited();
+    void passwordEdited();
+    void noteEdited();
+
 public slots:
 
     void setPairButton(ElementButton*);

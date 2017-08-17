@@ -133,18 +133,24 @@ void ElementInfoWidget::setName(QString _name)
     name = _name;
     p_name_label->setText("Name: " + _name);
     p_pair_button->setText(_name);
+
+    emit nameEdited();
 }
 
 void ElementInfoWidget::setPassword(QString _password)
 {
     password = _password;
     p_password_label->setText("Password: " + _password);
+
+    emit passwordEdited();
 }
 
 void ElementInfoWidget::setNote(QString _note)
 {
     note = _note;
     p_note_label->setText("Note: " + _note);
+
+    emit noteEdited();
 }
 
 void ElementInfoWidget::nameCopyButtonClicked()

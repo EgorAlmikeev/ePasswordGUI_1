@@ -87,7 +87,7 @@ void MainWindow::createButtonsSettings()
     p_add_button->setToolTip("Add new data");
 
     connect(p_add_button, SIGNAL(clicked(bool)), SLOT(processTakeName()));
-    connect(p_add_button, SIGNAL(clicked(bool)), SLOT(startInput()));
+    connect(p_add_button, SIGNAL(clicked(bool)), SLOT(lockOtherWidgets()));
 
     //wipe button
     QPixmap wipe_pix(":/images/wipe_data69x72.png");
@@ -159,7 +159,7 @@ void MainWindow::createTakeNameInputWidget()
     p_stacked_info_widget->addWidget(p_name_input);
 
     connect(p_name_input, SIGNAL(sendName(QString)), SLOT(copyToNameBuffer(QString)));
-    connect(p_name_input, SIGNAL(sendName(QString)), SLOT(finishInput()));
+    connect(p_name_input, SIGNAL(sendName(QString)), SLOT(unlockOtherWidgets()));
 }
 
 void MainWindow::createTakePasswordInputWidget()
@@ -173,7 +173,7 @@ void MainWindow::createTakePasswordInputWidget()
     p_stacked_info_widget->addWidget(p_password_input);
 
     connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(copyToPasswordBuffer(QString)));
-    connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(finishInput()));
+    connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(unlockOtherWidgets()));
 }
 
 void MainWindow::createTakeNoteInputWidget()
@@ -185,7 +185,7 @@ void MainWindow::createTakeNoteInputWidget()
     p_stacked_info_widget->addWidget(p_note_input);
 
     connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(copyToNoteBuffer(QString)));
-    connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(finishInput()));
+    connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(unlockOtherWidgets()));
 }
 
 void MainWindow::clearInputWidgets()
@@ -272,8 +272,6 @@ void MainWindow::processTakeName()
 {
     qDebug() << "taking name";
 
-    static bool connected = false;
-
     clearInputWidgets();
     p_name_input->setVisible(true);
     p_stacked_info_widget->setCurrentWidget(p_name_input);
@@ -281,25 +279,24 @@ void MainWindow::processTakeName()
     if(sender() == p_add_button)
     {
         connect(p_name_input, SIGNAL(sendName(QString)), SLOT(processTakePassword()), Qt::UniqueConnection);
-        startInput();
+        lockOtherWidgets();
     }
     else
     {
         disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(processTakePassword()));
-        finishInput();
+        unlockOtherWidgets();
     }
 
-    if(sender()->objectName() == "info widget")
-        connected = connect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)), Qt::UniqueConnection);
-    else if(connected)
-        disconnect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)));
+//    if(sender()->objectName() == "info widget")
+//    {
+//        connected = connect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)), Qt::UniqueConnection);
+//        connect(p_name_input, SIGNAL(sendName(QString)), SLOT(processRefreshScrollArea()), Qt::UniqueConnection);
+//    }
 }
 
 void MainWindow::processTakePassword()
 {
     qDebug() << "taking password";
-
-    static bool connected = false;
 
     clearInputWidgets();
     p_password_input->setVisible(true);
@@ -308,25 +305,23 @@ void MainWindow::processTakePassword()
     if(sender() == p_name_input)
     {
         connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(processTakeNote()), Qt::UniqueConnection);
-        startInput();
+        lockOtherWidgets();
     }
     else
     {
         disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(processTakeNote()));
-        finishInput();
+        unlockOtherWidgets();
     }
 
-    if(sender()->objectName() == "info widget")
-        connected = connect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)), Qt::UniqueConnection);
-    else if(connected)
-        disconnect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)));
+//    if(sender()->objectName() == "info widget")
+//        connected = connect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)), Qt::UniqueConnection);
+//    else if(connected)
+//        disconnect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)));
 }
 
 void MainWindow::processTakeNote()
 {
     qDebug() << "taking note";
-
-    static bool connected = false;
 
     clearInputWidgets();
     p_note_input->setVisible(true);
@@ -335,15 +330,45 @@ void MainWindow::processTakeNote()
     if(sender() == p_password_input)
     {
         connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(processCreateNewElement()), Qt::UniqueConnection);
-        startInput();
+        lockOtherWidgets();
     }
     else
         disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));
 
-    if(sender()->objectName() == "info widget")
-        connected = connect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)), Qt::UniqueConnection);
-    else if(connected)
-        disconnect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)));
+//    if(sender()->objectName() == "info widget")
+//        connected = connect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)), Qt::UniqueConnection);
+//    else if(connected)
+//        disconnect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)));
+}
+
+void MainWindow::createEditConnections()
+{
+    //name
+    connect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)), Qt::UniqueConnection);
+    connect(p_name_input, SIGNAL(sendName(QString)), SLOT(processRefreshScrollArea()), Qt::UniqueConnection);
+    //password
+    connect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)), Qt::UniqueConnection);
+    //note
+    connect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)), Qt::UniqueConnection);
+
+    connect(p_name_input, SIGNAL(sendName(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
+    connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
+    connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
+}
+
+void MainWindow::destroyEditConnections()
+{
+    //name
+    disconnect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)));
+//    disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(processRefreshScrollArea()));!!!
+    //password
+    disconnect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)));
+    //note
+    disconnect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)));
+
+    disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(destroyEditConnections()));
+    disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(destroyEditConnections()));
+    disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(destroyEditConnections()));
 }
 
 void MainWindow::setElementInfoWidget(ElementInfoWidget *p_widget)
@@ -380,8 +405,18 @@ ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString passwor
     connect(p_new_button, SIGNAL(sendPairWidget(ElementInfoWidget*)), SLOT(setElementInfoWidget(ElementInfoWidget*)));
 
     connect(p_new_widget, SIGNAL(nameEditButtonClicked()), SLOT(processTakeName()));
+    connect(p_new_widget, SIGNAL(nameEditButtonClicked()), SLOT(createEditConnections()));
+
     connect(p_new_widget, SIGNAL(passwordEditButtonClicked()), SLOT(processTakePassword()));
+    connect(p_new_widget, SIGNAL(passwordEditButtonClicked()), SLOT(createEditConnections()));
+
     connect(p_new_widget, SIGNAL(noteEditButtonClicked()), SLOT(processTakeNote()));
+    connect(p_new_widget, SIGNAL(noteEditButtonClicked()), SLOT(createEditConnections()));
+
+    connect(p_new_widget, SIGNAL(nameEdited()), SLOT(destroyEditConnections()));
+    connect(p_new_widget, SIGNAL(passwordEdited()), SLOT(destroyEditConnections()));
+    connect(p_new_widget, SIGNAL(noteEdited()), SLOT(destroyEditConnections()));
+
 
     connect(p_new_widget, SIGNAL(removeButtonClicked()), SLOT(processRemoveElement()));
 
@@ -413,12 +448,12 @@ void MainWindow::setOtherWidgetsEabled(bool boolean)
     p_author_button->setEnabled(boolean);
 }
 
-void MainWindow::startInput()
+void MainWindow::lockOtherWidgets()
 {
     setOtherWidgetsEabled(false);
 }
 
-void MainWindow::finishInput()
+void MainWindow::unlockOtherWidgets()
 {
     setOtherWidgetsEabled(true);
 }

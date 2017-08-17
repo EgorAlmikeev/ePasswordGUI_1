@@ -88,6 +88,9 @@ public slots:
     void processTakePassword();
     void processTakeNote();
 
+    void createEditConnections();
+    void destroyEditConnections();
+
     ElementInfoWidget * createNewInfoLabel(QString name, QString password, QString note);
 
     void setElementInfoWidget(ElementInfoWidget*);
@@ -99,8 +102,8 @@ public slots:
 
     void setOtherWidgetsEabled(bool);
 
-    void startInput();
-    void finishInput();
+    void lockOtherWidgets();
+    void unlockOtherWidgets();
 };
 
 #endif // MAINWINDOW_H
