@@ -257,10 +257,18 @@ void MainWindow::processRefreshScrollArea()
     }
 }
 
-void MainWindow::processCreateNewElement()
+void MainWindow::processCreateNewElement(QString name, QString password, QString note)
 {
     qDebug() << "creating new element";
-    createNewInfoLabel(name_buffer, password_buffer, note_buffer);
+
+    if(name == 0 && password == 0 && note == 0)
+    {
+        name = name_buffer;
+        password = password_buffer;
+        note = note_buffer;
+    }
+
+    createNewInfoLabel(name, password, note);
     processRefreshScrollArea();
 }
 
@@ -288,12 +296,6 @@ void MainWindow::processTakeName()
         disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(processTakePassword()));
         unlockOtherWidgets();
     }
-
-//    if(sender()->objectName() == "info widget")
-//    {
-//        connected = connect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)), Qt::UniqueConnection);
-//        connect(p_name_input, SIGNAL(sendName(QString)), SLOT(processRefreshScrollArea()), Qt::UniqueConnection);
-//    }
 }
 
 void MainWindow::processTakePassword()
@@ -314,11 +316,6 @@ void MainWindow::processTakePassword()
         disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(processTakeNote()));
         unlockOtherWidgets();
     }
-
-//    if(sender()->objectName() == "info widget")
-//        connected = connect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)), Qt::UniqueConnection);
-//    else if(connected)
-//        disconnect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)));
 }
 
 void MainWindow::processTakeNote()
@@ -336,11 +333,6 @@ void MainWindow::processTakeNote()
     }
     else
         disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));
-
-//    if(sender()->objectName() == "info widget")
-//        connected = connect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)), Qt::UniqueConnection);
-//    else if(connected)
-//        disconnect(p_note_input, SIGNAL(sendNote(QString)), sender(), SLOT(setNote(QString)));
 }
 
 void MainWindow::createEditConnections()
@@ -362,7 +354,6 @@ void MainWindow::destroyEditConnections()
 {
     //name
     disconnect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)));
-//    disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(processRefreshScrollArea()));!!!
     //password
     disconnect(p_password_input, SIGNAL(sendPassword(QString)), sender(), SLOT(setPassword(QString)));
     //note

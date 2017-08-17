@@ -16,6 +16,8 @@ PasswordDataBase::PasswordDataBase()
 
     iter = element_multi_map.begin();
     cryptor.setCryptFileName(data_file.fileName());
+
+    decryptReadEncrypt();
 }
 
 PasswordDataBase::~PasswordDataBase()
@@ -115,8 +117,6 @@ void PasswordDataBase::removeElement(QString _name)
     string name;
 
     name = _name.toStdString();
-
-//    if(!element_multi_map.contains(QString::fromStdString(name + '\n')))!!!!!!!!!!!!!!!
 
     iter = element_multi_map.find(QString::fromStdString(name + '\n'));
 

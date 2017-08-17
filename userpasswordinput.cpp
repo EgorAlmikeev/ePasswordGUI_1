@@ -86,9 +86,15 @@ void UserPasswordInput::userPasswordCheckBoxToggled()
 void UserPasswordInput::checkPassword()
 {
     if(p_line_edit->text().length() >= password_minimum_length && !p_line_edit->text().contains(' '))
+    {
         p_next_button->setEnabled(true);
+        p_line_edit->setStyleSheet( "color : black;" );
+    }
     else
+    {
         p_next_button->setEnabled(false);
+        p_line_edit->setStyleSheet( "color : red;" );
+    }
 }
 
 void UserPasswordInput::generateButtonClicked()

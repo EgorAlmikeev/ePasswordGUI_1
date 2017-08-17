@@ -80,7 +80,7 @@ signals:
 public slots:
 
     void processRefreshScrollArea();
-    void processCreateNewElement();
+    void processCreateNewElement(QString name = 0, QString password = 0, QString note = 0);
     void processRemoveElement();
     void processWipeData();
 
