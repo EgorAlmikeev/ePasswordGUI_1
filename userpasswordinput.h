@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QPushButton>
+#include <QSlider>
 
 #include "mainwindow.h"
 
@@ -30,24 +31,28 @@ public:
 
     QCheckBox *p_user_input_checkbox;
 
+    QSlider *p_slider;
+    QLabel *p_slider_display;
+
     QString password;
 
     int password_minimum_length;
+    short password_maximum_length;
 
 
 
 
     //password simbols generation
     std::string generatePassword();
-    char *password_simbols = nullptr;
+    char *p_password_simbols = nullptr;
 
-    void setPasswordSimbolsDigits();
-    void setPasswordSimbolsLetters();
-    void setPasswordSimbolsSpecials();
-    void setPasswordSimbolsDigitsLetters();
-    void setPasswordSimbolsDigitsSpecials();
-    void setPasswordSimbolsLettersSpecials();
-    void setPasswordSimbolsDigitsLettersSpecials();
+    bool setPasswordSimbolsDigits();
+    bool setPasswordSimbolsLetters();
+    bool setPasswordSimbolsSpecials();
+    bool setPasswordSimbolsDigitsLetters();
+    bool setPasswordSimbolsDigitsSpecials();
+    bool setPasswordSimbolsLettersSpecials();
+    bool setPasswordSimbolsDigitsLettersSpecials();
     //end of password simbols generation
 
 signals:
