@@ -18,21 +18,29 @@ UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
 
     p_slider = new QSlider;
     p_slider_display = new QLabel("20");
+    p_slider_display->setAlignment(Qt::AlignCenter);
+    p_slider_display->setStyleSheet("background-color : white;");
 
     p_slider->setRange(5, 20);
-    p_slider->setTickInterval(5);
+    p_slider->setTickInterval(2);
     p_slider->setTickPosition(QSlider::TicksAbove);
     p_slider->setSingleStep(1);
+    p_slider->setStyleSheet("background-color : white;");
+    p_slider->setValue(20);
 
-    p_central_grid_layout->addWidget(p_label, 0, 0, 1, 2);
-    p_central_grid_layout->addWidget(p_letters_checkbox, 1, 0, 1, 1);
-    p_central_grid_layout->addWidget(p_digits_checkbox, 2, 0, 1, 1);
-    p_central_grid_layout->addWidget(p_specials_checkbox, 3, 0, 1, 1);
-    p_central_grid_layout->addWidget(p_user_input_checkbox, 4, 0, 1, 1);
+
+    p_central_grid_layout->addWidget(p_label, 0, 0, 1, 4);
+    p_central_grid_layout->addWidget(p_letters_checkbox, 1, 0, 1, 2);
+    p_central_grid_layout->addWidget(p_digits_checkbox, 2, 0, 1, 2);
+    p_central_grid_layout->addWidget(p_specials_checkbox, 3, 0, 1, 2);
+    p_central_grid_layout->addWidget(p_user_input_checkbox, 4, 0, 1, 2);
 
     p_central_grid_layout->addWidget(p_generate_button, 5, 0, 1, 2);
     p_central_grid_layout->addWidget(p_line_edit, 6, 0, 1, 4);
     p_central_grid_layout->addWidget(p_next_button, 6, 4, 1, 1);
+
+    p_central_grid_layout->addWidget(p_slider, 1, 2, 4, 1);
+    p_central_grid_layout->addWidget(p_slider_display, 5, 2, 1, 1);
 
     p_next_button->setEnabled(false);
 
@@ -41,6 +49,11 @@ UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
     connect(p_line_edit, SIGNAL(textChanged(QString)), SLOT(checkPassword()));
     connect(p_user_input_checkbox, SIGNAL(toggled(bool)), SLOT(userPasswordCheckBoxToggled()));
     connect(p_next_button, SIGNAL(clicked(bool)), SLOT(nextButtonClicked()));
+
+    connect(p_slider, SIGNAL(sliderMoved(int)), p_slider_display, SLOT(setNum(int)));
+    connect(p_slider, SIGNAL(valueChanged(int)), p_slider_display, SLOT(setNum(int)));
+    connect(p_slider, SIGNAL(sliderMoved(int)), SLOT(setPasswordMaximumLength(int)));
+
 
     p_central_grid_layout->setSpacing(0);
     p_central_grid_layout->setMargin(0);
@@ -56,7 +69,6 @@ UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
     p_line_edit->setReadOnly(true);
 
     p_next_button->setFixedSize(90, 70);
-//    p_generate_button->setFixedSize(100, 70);
 
     p_letters_checkbox->setFont(QFont("Arial", 20));
     p_digits_checkbox->setFont(QFont("Arial", 20));
@@ -77,6 +89,14 @@ void UserPasswordInput::userPasswordCheckBoxToggled()
         p_specials_checkbox->setEnabled(false);
 
         p_line_edit->setReadOnly(false);
+
+        p_slider->setEnabled(false);
+        p_slider_display->setEnabled(false);
+
+        setPasswordMaximumLength(20);
+        p_slider->setValue(20);
+
+        p_line_edit->clear();
     }
     else
     {
@@ -87,6 +107,10 @@ void UserPasswordInput::userPasswordCheckBoxToggled()
         p_specials_checkbox->setEnabled(true);
 
         p_line_edit->setReadOnly(true);
+
+        p_slider->setEnabled(true);
+        p_slider_display->setEnabled(true);
+
         p_line_edit->clear();
     }
 }
