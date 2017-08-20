@@ -57,8 +57,8 @@ MainWindow::MainWindow(QWidget *parent)
     createTakePasswordInputWidget();
     createTakeNoteInputWidget();
 
-
-    processReadElementsFromFile();
+    if(!core.elements.empty())
+        processReadElementsFromFile();
 }
 
 MainWindow::~MainWindow()
@@ -270,10 +270,11 @@ void MainWindow::processCreateNewElement(QString name, QString password, QString
 
         core.addElement(name, password, note);
         core.writeFile();
+        createNewInfoLabel(name, password, note);
+        processRefreshScrollArea();
     }
-
-    createNewInfoLabel(name, password, note);
-    processRefreshScrollArea();
+    else
+        createNewInfoLabel(name, password, note);
 }
 
 void MainWindow::processRemoveElement()

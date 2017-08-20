@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     w.show();
     w.setFocus();
     w.setGeometry(400, 200, 700, 523);
+    w.processRefreshScrollArea();
 
     return a.exec();
 }

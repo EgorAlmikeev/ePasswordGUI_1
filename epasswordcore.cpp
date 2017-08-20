@@ -1,14 +1,15 @@
 #include "epasswordcore.h"
+#include "QDir"
 
 ePasswordCore::ePasswordCore()
 {
 
-    data_file.setFileName("GUISAVES.txt");
+    data_file.setFileName("./ePasswordSaves.txt");
     p_cryptor = new Cryptor(data_file.fileName());
 
     if(!data_file.exists())
     {
-        data_file.open(QFile::ReadOnly);
+        data_file.open(QFile::WriteOnly);
         data_file.close();
     }
     else
