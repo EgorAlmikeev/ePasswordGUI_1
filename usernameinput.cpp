@@ -57,7 +57,7 @@ void UserNameInput::setNameMinimumLength(int min)
 
 void UserNameInput::checkText()
 {
-    if(p_line_edit->text().length() >= text_minimum && !p_line_edit->text().contains(' ') && !MainWindow::p_core->element_multi_map.contains(p_line_edit->text() + '\n'))
+    if(p_line_edit->text().length() >= text_minimum && !p_line_edit->text().contains(' ')/* && !MainWindow::p_core->element_multi_map.contains(p_line_edit->text() + '\n')*/)
     {
         p_next_button->setEnabled(true);
         p_line_edit->setStyleSheet( "color : black;" );

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "passworddatabase.h"
+#include <epasswordcore.h>
 
 class QLabel;
 class QGridLayout;
@@ -25,7 +25,7 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    static PasswordDataBase *p_core;
+    static ePasswordCore core;
 
 private :
 
@@ -65,6 +65,8 @@ private :
 
     void createAuthorWidgetSettings();
 
+    ElementInfoWidget * createNewInfoLabel(QString name, QString password, QString note);
+
     QString name_buffer,
             password_buffer,
             note_buffer;
@@ -84,6 +86,8 @@ public slots:
     void processRemoveElement();
     void processWipeData();
 
+    void processReadElementsFromFile();
+
     void processTakeName();
     void processTakePassword();
     void processTakeNote();
@@ -91,7 +95,6 @@ public slots:
     void createEditConnections();
     void destroyEditConnections();
 
-    ElementInfoWidget * createNewInfoLabel(QString name, QString password, QString note);
 
     void setElementInfoWidget(ElementInfoWidget*);
     void showAuthorWidget();

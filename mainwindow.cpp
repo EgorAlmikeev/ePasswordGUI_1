@@ -14,7 +14,7 @@
 #include <QDebug>
 
 
-PasswordDataBase * MainWindow::p_core;
+ePasswordCore MainWindow::core;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,8 +33,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     p_logo_widget = new QLabel;
     p_author_button = new QPushButton;
-
-    p_core = new PasswordDataBase;
 
     scroll_widget_height = 0;
     element_buttons_height = 70;
@@ -58,6 +56,9 @@ MainWindow::MainWindow(QWidget *parent)
     createTakeNameInputWidget();
     createTakePasswordInputWidget();
     createTakeNoteInputWidget();
+
+
+    processReadElementsFromFile();
 }
 
 MainWindow::~MainWindow()
@@ -266,6 +267,9 @@ void MainWindow::processCreateNewElement(QString name, QString password, QString
         name = name_buffer;
         password = password_buffer;
         note = note_buffer;
+
+        core.addElement(name, password, note);
+        core.writeFile();
     }
 
     createNewInfoLabel(name, password, note);
@@ -449,4 +453,23 @@ void MainWindow::lockOtherWidgets()
 void MainWindow::unlockOtherWidgets()
 {
     setOtherWidgetsEabled(true);
+}
+
+void MainWindow::processReadElementsFromFile()
+{
+    QString name, password, note;
+
+    core.readFile();
+
+    for(core.iter = core.elements.begin(); core.iter != core.elements.end();)
+    {
+        name = core.iter.value();
+        core.iter++;
+        password = core.iter.value();
+        core.iter++;
+        note = core.iter.value();
+        core.iter++;
+
+        processCreateNewElement(name, password, note);
+    }
 }

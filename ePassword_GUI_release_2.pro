@@ -31,8 +31,8 @@ SOURCES += \
     elementbutton.cpp \
     usernameinput.cpp \
     usernoteinput.cpp \
-    passworddatabase.cpp \
-    cryptor.cpp
+    cryptor.cpp \
+    epasswordcore.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,7 +42,7 @@ HEADERS += \
     usernameinput.h \
     usernoteinput.h \
     cryptor.h \
-    passworddatabase.h
+    epasswordcore.h
 
 RESOURCES += \
     res/res.qrc

@@ -3,6 +3,7 @@
 
 #include <QFile>
 #include <QString>
+#include <QDebug>
 
 class Cryptor
 {
@@ -14,6 +15,8 @@ public:
     Cryptor();
     Cryptor(QString crypt_file_name);
     ~Cryptor();
+
+    QString getCryptFileName();
 
     void setCryptFileName(QString crypt_file_name);
 

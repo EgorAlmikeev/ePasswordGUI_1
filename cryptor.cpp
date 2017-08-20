@@ -1,32 +1,38 @@
 #include "cryptor.h"
 #include <iostream>
 
+
 using namespace std;
 
 Cryptor::Cryptor()
 {
     data.clear();
 }
+
 Cryptor::Cryptor(QString crypt_file_name)
 {
     data.clear();
     setCryptFileName(crypt_file_name);
 }
+
 Cryptor::~Cryptor()
 {}
+
 Cryptor::CryptorException::CryptorException(QString _what)
 {
     what = _what;
 }
+
 void Cryptor::CryptorException::errmsg()
 {
-    cerr << "\n#error [CRYPTOR] : " << what.toStdString();
+    qDebug() << "\n#error [CRYPTOR] : " << what;
 }
 
 void Cryptor::setCryptFileName(QString crypt_file_name)
 {
     file.setFileName(crypt_file_name);
 }
+
 void Cryptor::encryptFile()
 {
     if(!file.exists())
@@ -69,6 +75,7 @@ void Cryptor::encryptFile()
     file.write(buff);
     file.close();
 }
+
 void Cryptor::decryptFile()
 {
     if(!file.exists())
@@ -110,4 +117,9 @@ void Cryptor::decryptFile()
 
     file.write(buff);
     file.close();
+}
+
+QString Cryptor::getCryptFileName()
+{
+    return file.fileName();
 }
