@@ -15,6 +15,8 @@ ElementButton::ElementButton(QWidget *parent) : QWidget(parent)
     p_central_widget->setFixedHeight(70);
     setFixedHeight(70);
 
+    p_central_widget->setCursor(Qt::OpenHandCursor);
+
     connect(p_central_widget, SIGNAL(clicked(bool)), SLOT(elementButtonClicked()));
 }
 

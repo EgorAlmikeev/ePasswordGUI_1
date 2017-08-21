@@ -32,6 +32,8 @@ UserNameInput::UserNameInput(QWidget *parent) : QWidget(parent)
     p_line_edit->setFocus();
 
     p_next_button->setFixedSize(100, 70);
+
+    p_next_button->setCursor(Qt::OpenHandCursor);
 }
 
 void UserNameInput::nextButtonClicked()

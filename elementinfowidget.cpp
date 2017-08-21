@@ -55,7 +55,8 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_central_vertical_layout->addLayout(p_note_horizontal_layout);
     p_central_vertical_layout->addLayout(p_remove_button_horizontal_layout);
 
-    //buttons icon settings
+    //buttons settings
+    //icon
     QPixmap copy_pix(":/images/copy200x200.png");
     p_name_copy_button->setIcon(copy_pix);
     p_password_copy_button->setIcon(copy_pix);
@@ -78,7 +79,7 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_remove_button->setIcon(remove_pix);
     p_remove_button->setIconSize(QSize(90, 90));
 
-    //buttons size settings
+    //size
     p_name_copy_button->setFixedSize(QSize(40, 40));
     p_password_copy_button->setFixedSize(QSize(40, 40));
     p_note_copy_button->setFixedSize(QSize(40, 40));
@@ -89,7 +90,7 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
 
     p_remove_button->setFixedSize(QSize(80, 80));
 
-    //buttons flat settings
+    //flat
     p_name_copy_button->setFlat(true);
     p_password_copy_button->setFlat(true);
     p_note_copy_button->setFlat(true);
@@ -99,6 +100,17 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_note_edit_button->setFlat(true);
 
     p_remove_button->setFlat(true);
+
+    //cursor
+    p_name_copy_button->setCursor(Qt::OpenHandCursor);
+    p_password_copy_button->setCursor(Qt::OpenHandCursor);
+    p_note_copy_button->setCursor(Qt::OpenHandCursor);
+
+    p_name_edit_button->setCursor(Qt::OpenHandCursor);
+    p_password_edit_button->setCursor(Qt::OpenHandCursor);
+    p_note_edit_button->setCursor(Qt::OpenHandCursor);
+
+    p_remove_button->setCursor(Qt::OpenHandCursor);
 
     //labels settings
     p_name_text_edit->setFrameStyle(QFrame::Box);
@@ -127,6 +139,16 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     connect(p_note_edit_button, SIGNAL(clicked(bool)), SIGNAL(noteEditButtonClicked()));
 
     connect(p_remove_button, SIGNAL(clicked(bool)), SIGNAL(removeButtonClicked()));
+
+    p_name_copy_button->setToolTip("Copy name");
+    p_password_copy_button->setToolTip("Copy password");
+    p_note_copy_button->setToolTip("Copy note");
+
+    p_name_edit_button->setToolTip("Edit name");
+    p_password_edit_button->setToolTip("Edit password");
+    p_note_edit_button->setToolTip("Edit note");
+
+    p_remove_button->setToolTip("Remove this save");
 }
 
 ElementInfoWidget::~ElementInfoWidget()

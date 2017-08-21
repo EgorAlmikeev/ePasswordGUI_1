@@ -76,6 +76,9 @@ UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
     p_user_input_checkbox->setFont(QFont("Arial", 20));
 
     p_generate_button->setFixedWidth(p_label->width() / 3);
+
+    p_next_button->setCursor(Qt::OpenHandCursor);
+    p_generate_button->setCursor(Qt::OpenHandCursor);
 }
 
 void UserPasswordInput::userPasswordCheckBoxToggled()
@@ -149,10 +152,15 @@ void UserPasswordInput::generateButtonClicked()
     else if(p_specials_checkbox->isChecked())
         setPasswordSimbolsSpecials();
     else
+    {
         password = "";
+        p_password_simbols = nullptr;
+    }
 
     if(p_letters_checkbox->isChecked() || p_digits_checkbox->isChecked() || p_specials_checkbox->isChecked())
         password = QString::fromStdString(generatePassword());
+    else
+        p_password_simbols = nullptr;
     p_line_edit->setText(password);
 }
 
@@ -191,6 +199,9 @@ void UserPasswordInput::clearInput()
 //password simbols generation functions
 std::string UserPasswordInput::generatePassword()
 {
+    if(p_password_simbols == nullptr)
+        return "";
+
     std::string password;
 
     short password_simbols_length = strlen(p_password_simbols);

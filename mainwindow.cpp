@@ -106,7 +106,7 @@ void MainWindow::createButtonsSettings()
     p_wipe_button->setMaximumWidth(wipe_pix.width());
 
     p_wipe_button->setFlat(true);
-    p_wipe_button->setToolTip("Wipe all saves");
+    p_wipe_button->setToolTip("Remove all saves forever");
 
     connect(p_wipe_button, SIGNAL(clicked(bool)), SLOT(processWipeData()));
 
@@ -117,6 +117,13 @@ void MainWindow::createButtonsSettings()
     p_author_button->setFixedWidth(110);
 
     connect(p_author_button, SIGNAL(clicked(bool)), SLOT(showAuthorWidget()));
+
+    p_add_button->setCursor(Qt::OpenHandCursor);
+    p_wipe_button->setCursor(Qt::OpenHandCursor);
+
+    p_author_button->setCursor(Qt::OpenHandCursor);
+
+    p_author_button->setToolTip("Information about author");
 }
 
 void MainWindow::createObjectNames()
@@ -233,6 +240,8 @@ void MainWindow::createAuthorWidgetSettings()
 
     connect(p_close_button, SIGNAL(clicked(bool)), p_author_widget, SLOT(close()));
     connect(p_close_button, SIGNAL(clicked(bool)), SLOT(clearElementInfoWidget()));
+
+    p_close_button->setCursor(Qt::OpenHandCursor);
 }
 
 void MainWindow::createLogoWidgetSettings()
