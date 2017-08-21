@@ -134,26 +134,24 @@ void UserPasswordInput::generateButtonClicked()
     if(p_password_simbols != nullptr)
         delete p_password_simbols;
 
-    bool checked;
-
     if(p_letters_checkbox->isChecked() && p_digits_checkbox->isChecked() && p_specials_checkbox->isChecked())
-        checked = setPasswordSimbolsDigitsLettersSpecials();
+        setPasswordSimbolsDigitsLettersSpecials();
     else if(p_letters_checkbox->isChecked() && p_digits_checkbox->isChecked())
-        checked = setPasswordSimbolsDigitsLetters();
+        setPasswordSimbolsDigitsLetters();
     else if(p_letters_checkbox->isChecked() && p_specials_checkbox->isChecked())
-        checked = setPasswordSimbolsLettersSpecials();
+        setPasswordSimbolsLettersSpecials();
     else if(p_digits_checkbox->isChecked() && p_specials_checkbox->isChecked())
-        checked = setPasswordSimbolsDigitsSpecials();
+        setPasswordSimbolsDigitsSpecials();
     else if(p_letters_checkbox->isChecked())
-        checked = setPasswordSimbolsLetters();
+        setPasswordSimbolsLetters();
     else if(p_digits_checkbox->isChecked())
-        checked = setPasswordSimbolsDigits();
+        setPasswordSimbolsDigits();
     else if(p_specials_checkbox->isChecked())
-        checked = setPasswordSimbolsSpecials();
+        setPasswordSimbolsSpecials();
     else
         password = "";
 
-    if(checked)
+    if(p_letters_checkbox->isChecked() || p_digits_checkbox->isChecked() || p_specials_checkbox->isChecked())
         password = QString::fromStdString(generatePassword());
     p_line_edit->setText(password);
 }

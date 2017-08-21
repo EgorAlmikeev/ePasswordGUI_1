@@ -109,7 +109,6 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_password_text_edit->setFixedSize(300, 70);
     p_note_text_edit->setFixedSize(300, 120);
 
-
     p_name_text_edit->setAlignment(Qt::AlignCenter);
     p_password_text_edit->setAlignment(Qt::AlignCenter);
     p_note_text_edit->setAlignment(Qt::AlignTop);
