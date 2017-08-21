@@ -47,6 +47,8 @@ private :
 
     QList<ElementButton*> element_buttons_list;
 
+    QLabel *p_null_widget;
+
     int scroll_widget_height;
     int element_buttons_height;
 
@@ -95,6 +97,7 @@ public slots:
     void createEditConnections();
     void destroyEditConnections();
 
+    void clearElementInfoWidget();
 
     void setElementInfoWidget(ElementInfoWidget*);
     void removeElement(ElementInfoWidget*);

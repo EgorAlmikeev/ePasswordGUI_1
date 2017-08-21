@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent)
     p_logo_widget = new QLabel;
     p_author_button = new QPushButton;
 
+    p_null_widget = new QLabel;
+    p_stacked_info_widget->addWidget(p_null_widget);
+
     scroll_widget_height = 0;
     element_buttons_height = 70;
 
@@ -59,6 +62,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     if(!core.elements.empty())
         processReadElementsFromFile();
+
+    clearElementInfoWidget();
 }
 
 MainWindow::~MainWindow()
@@ -270,7 +275,8 @@ void MainWindow::processCreateNewElement(QString name, QString password, QString
 
         core.addElement(name, password, note);
         core.writeFile();
-        createNewInfoLabel(name, password, note);
+
+        setElementInfoWidget(createNewInfoLabel(name, password, note));
         processRefreshScrollArea();
     }
     else
@@ -284,6 +290,7 @@ void MainWindow::processRemoveElement()
     core.writeFile();
     delete sender();
     processRefreshScrollArea();
+    clearElementInfoWidget();
 }
 
 void MainWindow::removeElement(ElementInfoWidget *p_widget)
@@ -292,12 +299,27 @@ void MainWindow::removeElement(ElementInfoWidget *p_widget)
         if(*iter == p_widget->p_pair_button)
         {
             element_buttons_list.erase(iter);
+            delete p_widget->p_pair_button;
             break;
         }
 }
 
 void MainWindow::processWipeData()
-{}
+{
+    ElementButton *p_temp_button;
+
+    for(QList<ElementButton*>::iterator iter = element_buttons_list.begin(); iter != element_buttons_list.end(); ++iter)
+    {
+        p_temp_button = *iter;
+        element_buttons_list.erase(iter);
+        core.removeElement(p_temp_button->p_pair_widget->objectName());
+        delete p_temp_button->p_pair_widget;
+        delete p_temp_button;
+    }
+
+    core.writeFile();
+    clearElementInfoWidget();
+}
 
 void MainWindow::processTakeName()
 {
@@ -383,6 +405,11 @@ void MainWindow::destroyEditConnections()
     disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(destroyEditConnections()));
     disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(destroyEditConnections()));
     disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(destroyEditConnections()));
+}
+
+void MainWindow::clearElementInfoWidget()
+{
+    p_stacked_info_widget->setCurrentWidget(p_null_widget);
 }
 
 void MainWindow::setElementInfoWidget(ElementInfoWidget *p_widget)

@@ -124,9 +124,7 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
 }
 
 ElementInfoWidget::~ElementInfoWidget()
-{
-    delete p_pair_button;
-}
+{}
 
 void ElementInfoWidget::setPairButton(ElementButton *p_button)
 {
