@@ -39,9 +39,9 @@ private:
 
     QPushButton *p_remove_button;
 
-    QLabel *p_name_label;
-    QLabel *p_password_label;
-    QLabel *p_note_label;
+    QTextEdit *p_name_line;
+    QTextEdit *p_password_line;
+    QTextEdit *p_note_text_edit;
 
 
 public:

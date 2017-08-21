@@ -393,10 +393,6 @@ void MainWindow::createEditConnections()
     connect(p_name_input, SIGNAL(sendName(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
     connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
     connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
-
-//    p_name_input->setText(sender()->objectName() + " name settings");
-//    p_password_input->setText(sender()->objectName() + " password settings");
-//    p_note_input->setText(sender()->objectName() + " note settings");
 }
 
 void MainWindow::destroyEditConnections()
@@ -413,10 +409,6 @@ void MainWindow::destroyEditConnections()
     disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(destroyEditConnections()));
 
     processElementEdited((ElementInfoWidget*) sender());
-
-//    p_name_input->setText("name settings");
-//    p_password_input->setText("password settings");
-//    p_note_input->setText("note settings");
 }
 
 void MainWindow::processElementEdited(ElementInfoWidget *p_widget)

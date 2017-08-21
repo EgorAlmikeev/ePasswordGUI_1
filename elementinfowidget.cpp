@@ -21,22 +21,30 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
 
     p_remove_button = new QPushButton;
 
-    p_name_label = new QLabel;
-    p_password_label = new QLabel;
-    p_note_label = new QLabel;
+    p_name_line = new QTextEdit;
+    p_password_line = new QTextEdit;
+    p_note_text_edit = new QTextEdit;
+
+    p_name_line->setReadOnly(true);
+    p_password_line->setReadOnly(true);
+    p_note_text_edit->setReadOnly(true);
+
+    p_name_line->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
+    p_password_line->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
+    p_note_text_edit->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
 
     //placement
     setLayout(p_central_vertical_layout);
 
-    p_name_horizontal_layout->addWidget(p_name_label);
+    p_name_horizontal_layout->addWidget(p_name_line);
     p_name_horizontal_layout->addWidget(p_name_copy_button);
     p_name_horizontal_layout->addWidget(p_name_edit_button);
 
-    p_password_horizontal_layout->addWidget(p_password_label);
+    p_password_horizontal_layout->addWidget(p_password_line);
     p_password_horizontal_layout->addWidget(p_password_copy_button);
     p_password_horizontal_layout->addWidget(p_password_edit_button);
 
-    p_note_horizontal_layout->addWidget(p_note_label);
+    p_note_horizontal_layout->addWidget(p_note_text_edit);
     p_note_horizontal_layout->addWidget(p_note_copy_button);
     p_note_horizontal_layout->addWidget(p_note_edit_button);
 
@@ -47,9 +55,9 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_central_vertical_layout->addLayout(p_note_horizontal_layout);
     p_central_vertical_layout->addLayout(p_remove_button_horizontal_layout);
 
-    p_name_label->setFrameStyle(QFrame::Box);
-    p_password_label->setFrameStyle(QFrame::Box);
-    p_note_label->setFrameStyle(QFrame::Box);
+//    p_name_line->setFrameStyle(QFrame::Box);
+//    p_password_line->setFrameStyle(QFrame::Box);
+//    p_note_text_edit->setFrameStyle(QFrame::Box);
 
     //buttons icon settings
     QPixmap copy_pix(":/images/copy200x200.png");
@@ -97,19 +105,22 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_remove_button->setFlat(true);
 
     //labels settings
-    p_name_label->setFrameStyle(QFrame::Box);
-    p_password_label->setFrameStyle(QFrame::Box);
-    p_note_label->setFrameStyle(QFrame::Box);
+    p_name_line->setFrameStyle(QFrame::Box);
+    p_password_line->setFrameStyle(QFrame::Box);
+    p_note_text_edit->setFrameStyle(QFrame::Box);
 
-    p_name_label->setFixedSize(300, 70);
-    p_password_label->setFixedSize(300, 70);
-    p_note_label->setFixedSize(300, 120);
+    p_name_line->setFixedSize(300, 70);
+    p_password_line->setFixedSize(300, 70);
+    p_note_text_edit->setFixedSize(300, 120);
 
-    p_note_label->setAlignment(Qt::AlignTop);
 
-    p_name_label->setFont(QFont("phosphate", 20));
-    p_password_label->setFont(QFont("phosphate", 20));
-    p_note_label->setFont(QFont("phosphate", 20));
+    p_name_line->setAlignment(Qt::AlignCenter);
+    p_password_line->setAlignment(Qt::AlignCenter);
+    p_note_text_edit->setAlignment(Qt::AlignTop);
+
+    p_name_line->setFont(QFont("phosphate", 20));
+    p_password_line->setFont(QFont("phosphate", 20));
+    p_note_text_edit->setFont(QFont("phosphate", 20));
 
     //connections
     connect(p_name_copy_button, SIGNAL(clicked(bool)), SLOT(nameCopyButtonClicked()));
@@ -134,7 +145,7 @@ void ElementInfoWidget::setPairButton(ElementButton *p_button)
 void ElementInfoWidget::setName(QString _name)
 {
     name = _name;
-    p_name_label->setText("Name: " + _name);
+    p_name_line->setText("Name: " + _name);
     p_pair_button->setText(_name);
 
     emit nameEdited();
@@ -143,7 +154,7 @@ void ElementInfoWidget::setName(QString _name)
 void ElementInfoWidget::setPassword(QString _password)
 {
     password = _password;
-    p_password_label->setText("Password: " + _password);
+    p_password_line->setText("Password: " + _password);
 
     emit passwordEdited();
 }
@@ -151,7 +162,7 @@ void ElementInfoWidget::setPassword(QString _password)
 void ElementInfoWidget::setNote(QString _note)
 {
     note = _note;
-    p_note_label->setText("Note: " + _note);
+    p_note_text_edit->setText("Note: " + _note);
 
     emit noteEdited();
 }

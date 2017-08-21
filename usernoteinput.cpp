@@ -23,6 +23,8 @@ UserNoteInput::UserNoteInput(QWidget *parent) : QWidget(parent)
     p_text_edit->setFixedWidth(300);
     p_text_edit->setFont(QFont("Arial", 20));
 
+//    p_text_edit->setStyleSheet("background-color: rgba(0, 120, 201, 0);");
+
     connect(p_next_button, SIGNAL(clicked(bool)), SLOT(nextButtonClicked()));
 }
 
