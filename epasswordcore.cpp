@@ -4,16 +4,15 @@
 ePasswordCore::ePasswordCore()
 {
 
-    data_file.setFileName("./ePasswordSaves.txt");
-    p_cryptor = new Cryptor(data_file.fileName());
+    data_file.setFileName(QDir::current().absolutePath() + "/ePasswordSaves.txt");
+    qDebug() << QDir::current().absolutePath();
+//    p_cryptor = new Cryptor(data_file.fileName());
 
     if(!data_file.exists())
     {
         data_file.open(QFile::WriteOnly);
         data_file.close();
     }
-    else
-        readFile();
 }
 
 void ePasswordCore::readFile()

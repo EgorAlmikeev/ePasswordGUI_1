@@ -97,6 +97,7 @@ public slots:
 
 
     void setElementInfoWidget(ElementInfoWidget*);
+    void removeElement(ElementInfoWidget*);
     void showAuthorWidget();
 
     void copyToNameBuffer(QString);

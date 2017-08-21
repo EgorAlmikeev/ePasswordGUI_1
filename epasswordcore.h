@@ -12,7 +12,7 @@ class ePasswordCore
 public:
     ePasswordCore();
 
-    Cryptor *p_cryptor;
+//    Cryptor *p_cryptor;
     QMultiMap<QString, QString> elements;
     QMultiMap<QString, QString>::iterator iter;
     QFile data_file;

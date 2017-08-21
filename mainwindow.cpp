@@ -278,7 +278,23 @@ void MainWindow::processCreateNewElement(QString name, QString password, QString
 }
 
 void MainWindow::processRemoveElement()
-{}
+{
+    removeElement((ElementInfoWidget*) sender());
+    core.removeElement(sender()->objectName());
+    core.writeFile();
+    delete sender();
+    processRefreshScrollArea();
+}
+
+void MainWindow::removeElement(ElementInfoWidget *p_widget)
+{
+    for(QList<ElementButton*>::iterator iter = element_buttons_list.begin(); iter != element_buttons_list.end(); ++iter)
+        if(*iter == p_widget->p_pair_button)
+        {
+            element_buttons_list.erase(iter);
+            break;
+        }
+}
 
 void MainWindow::processWipeData()
 {}
@@ -395,7 +411,7 @@ ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString passwor
     p_new_widget->setName(name);
     p_new_widget->setPassword(password);
     p_new_widget->setNote(note);
-    p_new_widget->setObjectName("info widget");
+    p_new_widget->setObjectName(name);
 
     p_stacked_info_widget->addWidget(p_new_widget);
     element_buttons_list << p_new_button;

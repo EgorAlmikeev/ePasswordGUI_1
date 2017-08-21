@@ -123,6 +123,11 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     connect(p_remove_button, SIGNAL(clicked(bool)), SIGNAL(removeButtonClicked()));
 }
 
+ElementInfoWidget::~ElementInfoWidget()
+{
+    delete p_pair_button;
+}
+
 void ElementInfoWidget::setPairButton(ElementButton *p_button)
 {
     p_pair_button = p_button;

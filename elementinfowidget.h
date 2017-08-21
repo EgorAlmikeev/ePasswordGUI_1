@@ -17,6 +17,7 @@ class ElementInfoWidget : public QWidget
     Q_OBJECT
 public:
     explicit ElementInfoWidget(QWidget *parent = nullptr);
+    ~ElementInfoWidget();
 
 private:
 
