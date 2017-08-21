@@ -21,26 +21,26 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
 
     p_remove_button = new QPushButton;
 
-    p_name_line = new QTextEdit;
-    p_password_line = new QTextEdit;
+    p_name_text_edit = new QTextEdit;
+    p_password_text_edit = new QTextEdit;
     p_note_text_edit = new QTextEdit;
 
-    p_name_line->setReadOnly(true);
-    p_password_line->setReadOnly(true);
+    p_name_text_edit->setReadOnly(true);
+    p_password_text_edit->setReadOnly(true);
     p_note_text_edit->setReadOnly(true);
 
-    p_name_line->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
-    p_password_line->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
+    p_name_text_edit->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
+    p_password_text_edit->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
     p_note_text_edit->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
 
     //placement
     setLayout(p_central_vertical_layout);
 
-    p_name_horizontal_layout->addWidget(p_name_line);
+    p_name_horizontal_layout->addWidget(p_name_text_edit);
     p_name_horizontal_layout->addWidget(p_name_copy_button);
     p_name_horizontal_layout->addWidget(p_name_edit_button);
 
-    p_password_horizontal_layout->addWidget(p_password_line);
+    p_password_horizontal_layout->addWidget(p_password_text_edit);
     p_password_horizontal_layout->addWidget(p_password_copy_button);
     p_password_horizontal_layout->addWidget(p_password_edit_button);
 
@@ -54,10 +54,6 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_central_vertical_layout->addLayout(p_password_horizontal_layout);
     p_central_vertical_layout->addLayout(p_note_horizontal_layout);
     p_central_vertical_layout->addLayout(p_remove_button_horizontal_layout);
-
-//    p_name_line->setFrameStyle(QFrame::Box);
-//    p_password_line->setFrameStyle(QFrame::Box);
-//    p_note_text_edit->setFrameStyle(QFrame::Box);
 
     //buttons icon settings
     QPixmap copy_pix(":/images/copy200x200.png");
@@ -105,21 +101,21 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_remove_button->setFlat(true);
 
     //labels settings
-    p_name_line->setFrameStyle(QFrame::Box);
-    p_password_line->setFrameStyle(QFrame::Box);
+    p_name_text_edit->setFrameStyle(QFrame::Box);
+    p_password_text_edit->setFrameStyle(QFrame::Box);
     p_note_text_edit->setFrameStyle(QFrame::Box);
 
-    p_name_line->setFixedSize(300, 70);
-    p_password_line->setFixedSize(300, 70);
+    p_name_text_edit->setFixedSize(300, 70);
+    p_password_text_edit->setFixedSize(300, 70);
     p_note_text_edit->setFixedSize(300, 120);
 
 
-    p_name_line->setAlignment(Qt::AlignCenter);
-    p_password_line->setAlignment(Qt::AlignCenter);
+    p_name_text_edit->setAlignment(Qt::AlignCenter);
+    p_password_text_edit->setAlignment(Qt::AlignCenter);
     p_note_text_edit->setAlignment(Qt::AlignTop);
 
-    p_name_line->setFont(QFont("phosphate", 20));
-    p_password_line->setFont(QFont("phosphate", 20));
+    p_name_text_edit->setFont(QFont("phosphate", 20));
+    p_password_text_edit->setFont(QFont("phosphate", 20));
     p_note_text_edit->setFont(QFont("phosphate", 20));
 
     //connections
@@ -145,7 +141,7 @@ void ElementInfoWidget::setPairButton(ElementButton *p_button)
 void ElementInfoWidget::setName(QString _name)
 {
     name = _name;
-    p_name_line->setText("Name: " + _name);
+    p_name_text_edit->setText("Name: " + _name);
     p_pair_button->setText(_name);
 
     emit nameEdited();
@@ -154,15 +150,25 @@ void ElementInfoWidget::setName(QString _name)
 void ElementInfoWidget::setPassword(QString _password)
 {
     password = _password;
-    p_password_line->setText("Password: " + _password);
+    p_password_text_edit->setText("Password: " + _password);
 
     emit passwordEdited();
 }
 
 void ElementInfoWidget::setNote(QString _note)
 {
-    note = _note;
-    p_note_text_edit->setText("Note: " + _note);
+    std::string temp = _note.toStdString();
+
+    for(int i = 0; i < temp.length(); ++i)
+    {
+        if(temp.at(i) == '$' && temp.at(i + 1) == '$')
+            temp.replace(i++, 2, "$");
+        if(temp.at(i) == '$')
+            temp.replace(i, 1, "\n");
+    }
+
+    note = QString::fromStdString(temp);
+    p_note_text_edit->setText("Note: " + note);
 
     emit noteEdited();
 }

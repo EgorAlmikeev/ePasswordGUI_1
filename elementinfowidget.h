@@ -39,8 +39,8 @@ private:
 
     QPushButton *p_remove_button;
 
-    QTextEdit *p_name_line;
-    QTextEdit *p_password_line;
+    QTextEdit *p_name_text_edit;
+    QTextEdit *p_password_text_edit;
     QTextEdit *p_note_text_edit;
 
 

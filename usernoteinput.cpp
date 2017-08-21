@@ -30,7 +30,17 @@ UserNoteInput::UserNoteInput(QWidget *parent) : QWidget(parent)
 
 void UserNoteInput::nextButtonClicked()
 {
-    QString buffer = p_text_edit->toPlainText();
+    std::string temp = p_text_edit->toPlainText().toStdString();
+
+    for(int i = 0; i < temp.length(); ++i)
+    {
+        if(temp.at(i) == '\n')
+            temp.replace(i, 1, "$");
+        else if(temp.at(i) == '$')
+            temp.replace(i++, 1, "$$");
+    }
+
+    QString buffer = QString::fromStdString(temp);
 
     emit sendNote(buffer);
     setVisible(false);
