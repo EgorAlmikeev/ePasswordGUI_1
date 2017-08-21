@@ -13,7 +13,7 @@ class ElementButton : public QWidget
 public:
     explicit ElementButton(QWidget *parent = nullptr);
 
-private:
+public:
 
     QPushButton *p_central_widget;
     QVBoxLayout *p_central_layout;

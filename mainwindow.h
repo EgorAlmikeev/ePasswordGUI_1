@@ -69,6 +69,8 @@ private :
 
     ElementInfoWidget * createNewInfoLabel(QString name, QString password, QString note);
 
+    void removeElement(ElementInfoWidget*);
+
     QString name_buffer,
             password_buffer,
             note_buffer;
@@ -90,6 +92,8 @@ public slots:
 
     void processReadElementsFromFile();
 
+    void processElementEdited(ElementInfoWidget*);
+
     void processTakeName();
     void processTakePassword();
     void processTakeNote();
@@ -100,7 +104,6 @@ public slots:
     void clearElementInfoWidget();
 
     void setElementInfoWidget(ElementInfoWidget*);
-    void removeElement(ElementInfoWidget*);
     void showAuthorWidget();
 
     void copyToNameBuffer(QString);

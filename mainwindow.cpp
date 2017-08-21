@@ -232,6 +232,7 @@ void MainWindow::createAuthorWidgetSettings()
     p_author_widget->setLayout(p_about_layout);
 
     connect(p_close_button, SIGNAL(clicked(bool)), p_author_widget, SLOT(close()));
+    connect(p_close_button, SIGNAL(clicked(bool)), SLOT(clearElementInfoWidget()));
 }
 
 void MainWindow::createLogoWidgetSettings()
@@ -286,11 +287,6 @@ void MainWindow::processCreateNewElement(QString name, QString password, QString
 void MainWindow::processRemoveElement()
 {
     removeElement((ElementInfoWidget*) sender());
-    core.removeElement(sender()->objectName());
-    core.writeFile();
-    delete sender();
-    processRefreshScrollArea();
-    clearElementInfoWidget();
 }
 
 void MainWindow::removeElement(ElementInfoWidget *p_widget)
@@ -302,6 +298,12 @@ void MainWindow::removeElement(ElementInfoWidget *p_widget)
             delete p_widget->p_pair_button;
             break;
         }
+
+    core.removeElement(sender()->objectName());
+    core.writeFile();
+    delete sender();
+    processRefreshScrollArea();
+    clearElementInfoWidget();
 }
 
 void MainWindow::processWipeData()
@@ -391,6 +393,10 @@ void MainWindow::createEditConnections()
     connect(p_name_input, SIGNAL(sendName(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
     connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
     connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
+
+//    p_name_input->setText(sender()->objectName() + " name settings");
+//    p_password_input->setText(sender()->objectName() + " password settings");
+//    p_note_input->setText(sender()->objectName() + " note settings");
 }
 
 void MainWindow::destroyEditConnections()
@@ -405,6 +411,31 @@ void MainWindow::destroyEditConnections()
     disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(destroyEditConnections()));
     disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(destroyEditConnections()));
     disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(destroyEditConnections()));
+
+    processElementEdited((ElementInfoWidget*) sender());
+
+//    p_name_input->setText("name settings");
+//    p_password_input->setText("password settings");
+//    p_note_input->setText("note settings");
+}
+
+void MainWindow::processElementEdited(ElementInfoWidget *p_widget)
+{
+    qDebug() << "element edited : " << p_widget->objectName();
+
+    QString name, password, note;
+
+    name = p_widget->name;
+    password = p_widget->password;
+    note = p_widget->note;
+
+    removeElement(p_widget);
+
+    core.addElement(name, password, note);
+    core.writeFile();
+
+    setElementInfoWidget(createNewInfoLabel(name, password, note));
+    processRefreshScrollArea();
 }
 
 void MainWindow::clearElementInfoWidget()
