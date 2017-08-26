@@ -1,4 +1,5 @@
 #include "elementbutton.h"
+#include "mainwindow.h"
 #include <QDebug>
 
 ElementButton::ElementButton(QWidget *parent) : QWidget(parent)
@@ -12,10 +13,13 @@ ElementButton::ElementButton(QWidget *parent) : QWidget(parent)
     p_central_layout->setMargin(0);
     p_central_layout->setSpacing(0);
 
-    p_central_widget->setFixedHeight(70);
-    setFixedHeight(70);
+    p_central_widget->setFixedWidth(190);
+    p_central_widget->setFixedHeight(MainWindow::element_buttons_height);
+    setFixedHeight(MainWindow::element_buttons_height);
 
     p_central_widget->setCursor(Qt::OpenHandCursor);
+    p_central_layout->setAlignment(Qt::AlignCenter);
+    p_central_widget->setStyleSheet("border : 1px solid black; border-radius : 15px;");
 
     connect(p_central_widget, SIGNAL(clicked(bool)), SLOT(elementButtonClicked()));
 }

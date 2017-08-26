@@ -32,7 +32,13 @@ UserNoteInput::UserNoteInput(QWidget *parent) : QWidget(parent)
 
 void UserNoteInput::nextButtonClicked()
 {
+    if(p_text_edit->toPlainText().length() == 0)
+        p_text_edit->setText(" ");
+
     std::string temp = p_text_edit->toPlainText().toStdString();
+
+    if(temp.at(temp.length() - 1) == '\n')
+        temp.erase(temp.length() - 1, 1);
 
     for(int i = 0; i < temp.length(); ++i)
     {

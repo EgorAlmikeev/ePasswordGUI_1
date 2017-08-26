@@ -12,9 +12,11 @@
 #include <QStackedWidget>
 #include <QGridLayout>
 #include <QDebug>
+#include <QMessageBox>
 
 
 ePasswordCore MainWindow::core;
+int MainWindow::element_buttons_height = 50;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -31,14 +33,12 @@ MainWindow::MainWindow(QWidget *parent)
     p_scroll_area_widget = new QWidget;
     p_scroll_area_widget_layout = new QVBoxLayout;
 
-    p_logo_widget = new QLabel;
     p_author_button = new QPushButton;
 
     p_null_widget = new QLabel;
     p_stacked_info_widget->addWidget(p_null_widget);
 
     scroll_widget_height = 0;
-    element_buttons_height = 70;
 
     setCentralWidget(p_central_widget);
     p_central_widget->setLayout(p_grid_layout);
@@ -54,7 +54,6 @@ MainWindow::MainWindow(QWidget *parent)
     createScrollAreaSettings();
 
     createBackGround();
-    createLogoWidgetSettings();
 
     createTakeNameInputWidget();
     createTakePasswordInputWidget();
@@ -71,11 +70,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::createWidgetsPlacement()
 {
-    p_grid_layout->addWidget(p_add_button, 0, 0, 1, 1);
-    p_grid_layout->addWidget(p_wipe_button, 0, 1, 1, 1);
+    QHBoxLayout *p_add_wipe_layout = new QHBoxLayout;
 
-    p_grid_layout->addWidget(p_logo_widget, 0, 2, 1, 1);
-    p_grid_layout->addWidget(p_author_button, 0, 3, 1, 1);
+    p_add_wipe_layout->setSpacing(0);
+    p_add_wipe_layout->setMargin(10);
+    p_add_wipe_layout->setAlignment(Qt::AlignCenter);
+
+    p_add_wipe_layout->addWidget(p_add_button);
+    p_add_wipe_layout->addWidget(p_wipe_button);
+
+    p_grid_layout->addLayout(p_add_wipe_layout, 0, 0, 1, 2);
+
+    p_grid_layout->addWidget(p_author_button, 0, 2, 1, 2);
 
     p_grid_layout->addWidget(p_scroll_area, 1, 0, 1, 2);
     p_grid_layout->addWidget(p_stacked_info_widget, 1, 2, 1, 2);
@@ -84,26 +90,24 @@ void MainWindow::createWidgetsPlacement()
 void MainWindow::createButtonsSettings()
 {
     //add button
-    QPixmap add_pix(":/images/add150x72.png");
+    QPixmap add_pix(":/images/add.png");
 
     p_add_button->setIcon(add_pix);
-    p_add_button->setIconSize(add_pix.size());
-    p_add_button->setMaximumHeight(add_pix.height());
-    p_add_button->setMaximumWidth(add_pix.width());
+    p_add_button->setIconSize(add_pix.size() / 2.5);
+    p_add_button->setFixedSize(add_pix.size() / 2.5);
 
     p_add_button->setFlat(true);
     p_add_button->setToolTip("Add new data");
 
     connect(p_add_button, SIGNAL(clicked(bool)), SLOT(processTakeName()));
-    connect(p_add_button, SIGNAL(clicked(bool)), SLOT(lockOtherWidgets()));
+//    connect(p_add_button, SIGNAL(clicked(bool)), SLOT(lockOtherWidgets()));
 
     //wipe button
-    QPixmap wipe_pix(":/images/wipe_data69x72.png");
+    QPixmap wipe_pix(":/images/removeall.png");
 
     p_wipe_button->setIcon(wipe_pix);
-    p_wipe_button->setIconSize(wipe_pix.size());
-    p_wipe_button->setMaximumHeight(wipe_pix.height());
-    p_wipe_button->setMaximumWidth(wipe_pix.width());
+    p_wipe_button->setIconSize(wipe_pix.size() / 2.5);
+    p_wipe_button->setFixedSize(wipe_pix.size() / 2.5);
 
     p_wipe_button->setFlat(true);
     p_wipe_button->setToolTip("Remove all saves forever");
@@ -111,10 +115,11 @@ void MainWindow::createButtonsSettings()
     connect(p_wipe_button, SIGNAL(clicked(bool)), SLOT(processWipeData()));
 
     //author button
-    p_author_button->setText("About author");
-    p_author_button->setFont(QFont("phosphate", 15));
+    p_author_button->setText("York's product");
+    p_author_button->setFont(QFont("phosphate", 35));
     p_author_button->setFlat(true);
-    p_author_button->setFixedWidth(110);
+    p_author_button->setFixedWidth(450);
+    p_author_button->setStyleSheet("color : #591a57;");
 
     connect(p_author_button, SIGNAL(clicked(bool)), SLOT(showAuthorWidget()));
 
@@ -140,27 +145,21 @@ void MainWindow::createObjectNames()
     p_scroll_area_widget->setObjectName("scroll widget");
     p_scroll_area_widget_layout->setObjectName("scroll layout");
 
-    p_logo_widget->setObjectName("logo");
     p_author_button->setObjectName("author button");
 }
 
 void MainWindow::createScrollAreaSettings()
 {
-    QBrush scroll_area_brush;
-    QPalette scroll_area_palette;
-
-    scroll_area_brush.setTexture(QPixmap(":/images/wood.jpg"));
-    scroll_area_palette.setBrush(p_scroll_area->backgroundRole(), scroll_area_brush);
-
-    p_scroll_area->setPalette(scroll_area_palette);
-
     p_scroll_area_widget_layout->setMargin(0);
     p_scroll_area_widget_layout->setSpacing(0);
+    p_scroll_area->setFixedWidth(230);
+    p_scroll_area->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
+    p_scroll_area->setFrameStyle(QFrame::Panel);
 }
 
 void MainWindow::createBackGround()
 {
-    p_central_widget->setPixmap(QPixmap(":/images/background.jpg"));
+    p_central_widget->setPixmap(QPixmap(":/images/bg2.jpg"));
 }
 
 void MainWindow::createTakeNameInputWidget()
@@ -168,7 +167,7 @@ void MainWindow::createTakeNameInputWidget()
     p_name_input = new UserNameInput;
 
     p_name_input->setNameMaximumLength(20);
-    p_name_input->setNameMinimumLength(5);
+    p_name_input->setNameMinimumLength(1);
     p_name_input->setText("name settings");
 
     p_stacked_info_widget->addWidget(p_name_input);
@@ -244,14 +243,6 @@ void MainWindow::createAuthorWidgetSettings()
     p_close_button->setCursor(Qt::OpenHandCursor);
 }
 
-void MainWindow::createLogoWidgetSettings()
-{
-    p_logo_widget->setText("York's Product");
-    p_logo_widget->setFont(QFont("phosphate", 35));
-    p_logo_widget->setFixedWidth(300);
-    p_logo_widget->setAlignment(Qt::AlignCenter);
-}
-
 //slots
 void MainWindow::processRefreshScrollArea()
 {
@@ -268,7 +259,7 @@ void MainWindow::processRefreshScrollArea()
 
     for(QList<ElementButton*>::iterator iter = element_buttons_list.begin(); iter != element_buttons_list.end(); ++iter)
     {
-        p_scroll_area_widget->resize(p_scroll_area->width() - 2, scroll_widget_height += (*iter)->height());
+        p_scroll_area_widget->resize(p_scroll_area->width() - 2, scroll_widget_height += element_buttons_height + 15);
         p_scroll_area_widget_layout->addWidget((*iter));
     }
 }
@@ -317,19 +308,37 @@ void MainWindow::removeElement(ElementInfoWidget *p_widget)
 
 void MainWindow::processWipeData()
 {
-    ElementButton *p_temp_button;
+    QMessageBox *p_wipe_alert = new QMessageBox;
 
-    for(QList<ElementButton*>::iterator iter = element_buttons_list.begin(); iter != element_buttons_list.end(); ++iter)
+    p_wipe_alert->setText("All data will be deleted.\nAre you sure?");
+    p_wipe_alert->setIcon(QMessageBox::Information);
+    p_wipe_alert->setInformativeText("Wipe all data?");
+    p_wipe_alert->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    p_wipe_alert->setDefaultButton(QMessageBox::Yes);
+
+    short result = p_wipe_alert->exec();
+
+    if(result == QMessageBox::Yes)
     {
-        p_temp_button = *iter;
-        element_buttons_list.erase(iter);
-        core.removeElement(p_temp_button->p_pair_widget->objectName());
-        delete p_temp_button->p_pair_widget;
-        delete p_temp_button;
-    }
 
-    core.writeFile();
-    clearElementInfoWidget();
+        ElementButton *p_temp_button;
+
+        for(QList<ElementButton*>::iterator iter = element_buttons_list.begin(); iter != element_buttons_list.end(); ++iter)
+        {
+            p_temp_button = *iter;
+            element_buttons_list.erase(iter);
+            core.removeElement(p_temp_button->p_pair_widget->objectName());
+            delete p_temp_button->p_pair_widget;
+            delete p_temp_button;
+        }
+
+        core.writeFile();
+        clearElementInfoWidget();
+        processRefreshScrollArea();
+    }
+    else;
+
+    delete p_wipe_alert;
 }
 
 void MainWindow::processTakeName()
@@ -343,12 +352,12 @@ void MainWindow::processTakeName()
     if(sender() == p_add_button)
     {
         connect(p_name_input, SIGNAL(sendName(QString)), SLOT(processTakePassword()), Qt::UniqueConnection);
-        lockOtherWidgets();
+//        lockOtherWidgets();
     }
     else
     {
         disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(processTakePassword()));
-        unlockOtherWidgets();
+//        unlockOtherWidgets();
     }
 }
 
@@ -363,12 +372,12 @@ void MainWindow::processTakePassword()
     if(sender() == p_name_input)
     {
         connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(processTakeNote()), Qt::UniqueConnection);
-        lockOtherWidgets();
+//        lockOtherWidgets();
     }
     else
     {
         disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(processTakeNote()));
-        unlockOtherWidgets();
+//        unlockOtherWidgets();
     }
 }
 
@@ -383,7 +392,7 @@ void MainWindow::processTakeNote()
     if(sender() == p_password_input)
     {
         connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(processCreateNewElement()), Qt::UniqueConnection);
-        lockOtherWidgets();
+//        lockOtherWidgets();
     }
     else
         disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));
@@ -391,6 +400,8 @@ void MainWindow::processTakeNote()
 
 void MainWindow::createEditConnections()
 {
+    ElementInfoWidget *p_sender = (ElementInfoWidget*) sender();
+
     //name
     connect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)), Qt::UniqueConnection);
     connect(p_name_input, SIGNAL(sendName(QString)), SLOT(processRefreshScrollArea()), Qt::UniqueConnection);
@@ -402,10 +413,20 @@ void MainWindow::createEditConnections()
     connect(p_name_input, SIGNAL(sendName(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
     connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
     connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
+
+    p_name_input->p_line_edit->setText(p_sender->name);
+    p_password_input->p_line_edit->setText(p_sender->password);
+    p_note_input->p_text_edit->setText(p_sender->note);
+
+    p_name_input->p_next_button->setText("Ok");
+    p_password_input->p_next_button->setText("Ok");
+    p_note_input->p_next_button->setText("Ok");
 }
 
 void MainWindow::destroyEditConnections()
 {
+    ElementInfoWidget *p_sender = (ElementInfoWidget*) sender();
+
     //name
     disconnect(p_name_input, SIGNAL(sendName(QString)), sender(), SLOT(setName(QString)));
     //password
@@ -417,7 +438,11 @@ void MainWindow::destroyEditConnections()
     disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(destroyEditConnections()));
     disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(destroyEditConnections()));
 
-    processElementEdited((ElementInfoWidget*) sender());
+    processElementEdited(p_sender);
+    clearInputWidgets();
+    p_name_input->p_next_button->setText("Next");
+    p_password_input->p_next_button->setText("Next");
+    p_note_input->p_next_button->setText("Next");
 }
 
 void MainWindow::processElementEdited(ElementInfoWidget *p_widget)

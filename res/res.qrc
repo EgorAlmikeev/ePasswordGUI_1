@@ -1,11 +1,12 @@
 <RCC>
     <qresource prefix="/images">
-        <file>add150x72.png</file>
+        <file>bg1.jpg</file>
+        <file>option.png</file>
         <file>edit.png</file>
-        <file>remove200x200.png</file>
-        <file>wipe_data69x72.png</file>
-        <file>wood.jpg</file>
-        <file>background.jpg</file>
-        <file>copy200x200.png</file>
+        <file>copy.png</file>
+        <file>remove.png</file>
+        <file>add.png</file>
+        <file>removeall.png</file>
+        <file>bg2.jpg</file>
     </qresource>
 </RCC>

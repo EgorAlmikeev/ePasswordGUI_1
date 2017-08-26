@@ -41,7 +41,6 @@ private :
     QWidget *p_scroll_area_widget;
     QVBoxLayout *p_scroll_area_widget_layout;
 
-    QLabel *p_logo_widget;
     QWidget *p_author_widget;
     QPushButton *p_author_button;
 
@@ -50,11 +49,15 @@ private :
     QLabel *p_null_widget;
 
     int scroll_widget_height;
-    int element_buttons_height;
+
+    public :
+
+    static int element_buttons_height;
+
+private :
 
     void createButtonsSettings();
     void createScrollAreaSettings();
-    void createLogoWidgetSettings();
     void createTakeNameInputWidget();
     void createTakePasswordInputWidget();
     void createTakeNoteInputWidget();
