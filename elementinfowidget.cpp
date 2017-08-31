@@ -122,9 +122,9 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_password_text_edit->setFrameStyle(QFrame::NoFrame);
     p_note_text_edit->setFrameStyle(QFrame::NoFrame);
 
-    p_name_text_edit->setStyleSheet("border : 1px solid black; border-radius : 15px; background-color: rgba(255, 255, 255, 0);");
-    p_password_text_edit->setStyleSheet("border : 1px solid black; border-radius : 15px; background-color: rgba(255, 255, 255, 0);");
-    p_note_text_edit->setStyleSheet("border : 1px solid black; border-radius : 15px; background-color: rgba(255, 255, 255, 0);");
+    p_name_text_edit->setStyleSheet("border : 1px solid black; border-radius : 15px; background-color: rgba(255, 255, 255, 0.5);");
+    p_password_text_edit->setStyleSheet("border : 1px solid black; border-radius : 15px; background-color: rgba(255, 255, 255, 0.5);");
+    p_note_text_edit->setStyleSheet("border : 1px solid black; border-radius : 15px; background-color: rgba(255, 255, 255, 0.5);");
 
     p_name_text_edit->setFixedSize(270, 70);
     p_password_text_edit->setFixedSize(270, 70);

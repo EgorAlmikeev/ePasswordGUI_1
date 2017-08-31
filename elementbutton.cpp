@@ -19,7 +19,7 @@ ElementButton::ElementButton(QWidget *parent) : QWidget(parent)
 
     p_central_widget->setCursor(Qt::OpenHandCursor);
     p_central_layout->setAlignment(Qt::AlignCenter);
-    p_central_widget->setStyleSheet("border : 1px solid black; border-radius : 15px;");
+    p_central_widget->setStyleSheet("border : 1px solid black; border-radius : 15px; background-color: rgba(255, 255, 255, 0);");
 
     connect(p_central_widget, SIGNAL(clicked(bool)), SLOT(elementButtonClicked()));
 }
