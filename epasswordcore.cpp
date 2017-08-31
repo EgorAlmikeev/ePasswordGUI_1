@@ -18,48 +18,57 @@ ePasswordCore::ePasswordCore()
 
 void ePasswordCore::readFile()
 {
-    elements.clear();
-    buffer.clear();
-
-//    p_cryptor->decryptFile();
-
-    data_file.open(QFile::ReadOnly);
-
-    QString name, password, note;
-    std::string std_temp;
-
-    while(!data_file.atEnd())
+    try
     {
-        buffer = data_file.readLine();
-        name = buffer;
+        elements.clear();
+        buffer.clear();
 
-        std_temp = name.toStdString();
+//        p_cryptor->decryptFile();
 
-        std_temp.erase(std_temp.length() - 1, std_temp.length());
+        data_file.open(QFile::ReadOnly);
 
-        name = QString::fromStdString(std_temp);
+        QString name, password, note;
+        std::string std_temp;
 
-        buffer = data_file.readLine();
-        password = buffer;
+        while(!data_file.atEnd())
+        {
+            buffer = data_file.readLine();
+            name = buffer;
 
-        std_temp = password.toStdString();
+            std_temp = name.toStdString();
 
-        std_temp.erase(std_temp.length() - 1, std_temp.length());
+            std_temp.erase(std_temp.length() - 1, std_temp.length());
 
-        password = QString::fromStdString(std_temp);
+            name = QString::fromStdString(std_temp);
 
-        buffer = data_file.readLine();
-        note = buffer;
+            buffer = data_file.readLine();
+            password = buffer;
 
-        std_temp = note.toStdString();
+            std_temp = password.toStdString();
 
-        std_temp.erase(std_temp.length() - 1, std_temp.length());
+            std_temp.erase(std_temp.length() - 1, std_temp.length());
 
-        note = QString::fromStdString(std_temp);
+            password = QString::fromStdString(std_temp);
 
-        elements.insertMulti(name, note);
-        elements.insertMulti(name, password);
-        elements.insertMulti(name, name);
+            buffer = data_file.readLine();
+            note = buffer;
+
+            std_temp = note.toStdString();
+
+            std_temp.erase(std_temp.length() - 1, std_temp.length());
+
+            note = QString::fromStdString(std_temp);
+
+            elements.insertMulti(name, note);
+            elements.insertMulti(name, password);
+            elements.insertMulti(name, name);
+        }
+    }
+    catch(std::out_of_range error)
+    {
+        error.what();
+        qDebug("string error catch");
+//        exit(1);
     }
 
     data_file.close();

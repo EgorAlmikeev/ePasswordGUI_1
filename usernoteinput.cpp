@@ -38,7 +38,10 @@ void UserNoteInput::nextButtonClicked()
     std::string temp = p_text_edit->toPlainText().toStdString();
 
     if(temp.at(temp.length() - 1) == '\n')
-        temp.erase(temp.length() - 1, 1);
+    {
+        for(int i = temp.length() - 1; temp.at(i) == '\n'; --i)
+            temp.erase(i, 1);
+    }
 
     for(int i = 0; i < temp.length(); ++i)
     {

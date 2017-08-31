@@ -415,6 +415,7 @@ void MainWindow::createEditConnections()
     connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(destroyEditConnections()), Qt::UniqueConnection);
 
     p_name_input->p_line_edit->setText(p_sender->name);
+    p_name_input->checkText();
     p_password_input->p_line_edit->setText(p_sender->password);
     p_note_input->p_text_edit->setText(p_sender->note);
 

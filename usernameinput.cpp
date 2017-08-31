@@ -74,4 +74,5 @@ void UserNameInput::checkText()
 void UserNameInput::clearInput()
 {
     p_line_edit->clear();
+    checkText();
 }
