@@ -211,28 +211,32 @@ void MainWindow::clearInputWidgets()
 
 void MainWindow::createAuthorWidgetSettings()
 {
-    QLabel *p_about_label = new QLabel(
-                "Hi! My name is York.\n"
-                "I'm from Saint-Petersburg (Russia).\n\n"
-                "I really hope you will use my password\n"
-                "manager with fun.\n\n"
-                "If you wanna connect with me,\n"
-                "so use this e-mail : york.git@gmail.com\n\n"
-                "This is an open-source application,\n"
-                "so I can send you all the sources.\n\n"
-                "Thanks for using my application,\n"
-                "good luck!"
-                );
-    p_about_label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-    p_about_label->setFont(QFont("phosphate", 20));
-    p_about_label->setAlignment(Qt::AlignCenter);
+    QTextEdit *p_about_text = new QTextEdit;
+
+    p_about_text->setText("Hi! My name is York.\n"
+                           "I'm from Saint-Petersburg (Russia).\n\n"
+                           "I really hope you will use my\npassword-"
+                           "manager with fun.\n\n"
+                           "If you wanna connect with me,\n"
+                           "use this e-mail : york.git@gmail.com\n\n"
+                           "This is an open-source application,\n"
+                           "so I can send you all the sources.\n\n"
+                           "Thanks for using my application,\n"
+                           "good luck!"
+                           );
+
+    p_about_text->setAlignment(Qt::AlignCenter);
+    p_about_text->setFont(QFont("Courier", 17));
+    p_about_text->setReadOnly(true);
+    p_about_text->setStyleSheet("background-color : rgba(255, 255, 255, 0)");
 
     p_stacked_info_widget->addWidget(p_author_widget);
 
     QPushButton *p_close_button = new QPushButton("close");
 
     QVBoxLayout *p_about_layout = new QVBoxLayout;
-    p_about_layout->addWidget(p_about_label);
+    p_about_layout->addSpacing(20);
+    p_about_layout->addWidget(p_about_text);
     p_about_layout->addWidget(p_close_button);
 
     p_author_widget->setLayout(p_about_layout);
