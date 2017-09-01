@@ -25,8 +25,6 @@ UserNoteInput::UserNoteInput(QWidget *parent) : QWidget(parent)
 
     p_next_button->setCursor(Qt::OpenHandCursor);
 
-//    p_text_edit->setStyleSheet("background-color: rgba(0, 120, 201, 0);");
-
     connect(p_next_button, SIGNAL(clicked(bool)), SLOT(nextButtonClicked()));
 }
 
@@ -37,18 +35,29 @@ void UserNoteInput::nextButtonClicked()
 
     std::string temp = p_text_edit->toPlainText().toStdString();
 
+    //delete of last \n simbols
     if(temp.at(temp.length() - 1) == '\n')
     {
         for(int i = temp.length() - 1; temp.at(i) == '\n'; --i)
             temp.erase(i, 1);
     }
 
+    //repplace of \n simbols inside the text for one \n simbol
+    for(int i = 0, j = 0; i < temp.length(); ++i, j = 0)
+    {
+        if(temp.at(i) == '\n')
+        {
+            for(j = i + 1; temp.at(j) == '\n'; ++j);
+            temp.replace(i, j - i, "\n");
+        }
+    }
+
     for(int i = 0; i < temp.length(); ++i)
     {
         if(temp.at(i) == '\n')
-            temp.replace(i, 1, "$");
-        else if(temp.at(i) == '$')
-            temp.replace(i++, 1, "$$");
+            temp.replace(i, 1, "\a");
+//        else if(temp.at(i) == '$')
+//            temp.replace(i++, 1, "$$");
     }
 
     QString buffer = QString::fromStdString(temp);

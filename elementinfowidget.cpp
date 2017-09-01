@@ -191,9 +191,9 @@ void ElementInfoWidget::setNote(QString _note)
 
     for(int i = 0; i < temp.length(); ++i)
     {
-        if(temp.at(i) == '$' && temp.at(i + 1) == '$')
+        /*if(temp.at(i) == '$' && temp.at(i + 1) == '$')
             temp.replace(i++, 2, "$");
-        else if(temp.at(i) == '$')
+        else */if(temp.at(i) == '\a')
             temp.replace(i, 1, "\n");
     }
 
