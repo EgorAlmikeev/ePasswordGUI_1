@@ -28,7 +28,7 @@ UserNameInput::UserNameInput(QWidget *parent) : QWidget(parent)
 
     p_line_edit->setFixedHeight(60);
     p_line_edit->setFixedWidth(325);
-    p_line_edit->setFont(QFont("Aria;", 30));
+    p_line_edit->setFont(QFont("Arial", 30));
     p_line_edit->setFocus();
 
     p_next_button->setFixedSize(100, 70);
