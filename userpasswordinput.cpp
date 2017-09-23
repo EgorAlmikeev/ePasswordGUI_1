@@ -190,10 +190,11 @@ void UserPasswordInput::clearInput()
 {
     p_line_edit->clear();
 
-    p_letters_checkbox->setChecked(false);
-    p_digits_checkbox->setChecked(false);
-    p_specials_checkbox->setChecked(false);
+    p_letters_checkbox->setChecked(true);
+    p_digits_checkbox->setChecked(true);
+    p_specials_checkbox->setChecked(true);
     p_user_input_checkbox->setChecked(false);
+    p_generate_button->setFocus();
 }
 
 //password simbols generation functions

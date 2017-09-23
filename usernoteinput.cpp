@@ -56,8 +56,6 @@ void UserNoteInput::nextButtonClicked()
     {
         if(temp.at(i) == '\n')
             temp.replace(i, 1, "\a");
-//        else if(temp.at(i) == '$')
-//            temp.replace(i++, 1, "$$");
     }
 
     QString buffer = QString::fromStdString(temp);
@@ -74,4 +72,5 @@ void UserNoteInput::setText(QString string)
 void UserNoteInput::clearInput()
 {
     p_text_edit->clear();
+    p_text_edit->setFocus();
 }

@@ -352,16 +352,15 @@ void MainWindow::processTakeName()
     clearInputWidgets();
     p_name_input->setVisible(true);
     p_stacked_info_widget->setCurrentWidget(p_name_input);
+    p_name_input->p_line_edit->setFocus();
 
     if(sender() == p_add_button)
     {
         connect(p_name_input, SIGNAL(sendName(QString)), SLOT(processTakePassword()), Qt::UniqueConnection);
-//        lockOtherWidgets();
     }
     else
     {
         disconnect(p_name_input, SIGNAL(sendName(QString)), this, SLOT(processTakePassword()));
-//        unlockOtherWidgets();
     }
 }
 
@@ -372,16 +371,15 @@ void MainWindow::processTakePassword()
     clearInputWidgets();
     p_password_input->setVisible(true);
     p_stacked_info_widget->setCurrentWidget(p_password_input);
+    p_password_input->p_generate_button->setFocus();
 
     if(sender() == p_name_input)
     {
         connect(p_password_input, SIGNAL(sendPassword(QString)), SLOT(processTakeNote()), Qt::UniqueConnection);
-//        lockOtherWidgets();
     }
     else
     {
         disconnect(p_password_input, SIGNAL(sendPassword(QString)), this, SLOT(processTakeNote()));
-//        unlockOtherWidgets();
     }
 }
 
@@ -392,11 +390,11 @@ void MainWindow::processTakeNote()
     clearInputWidgets();
     p_note_input->setVisible(true);
     p_stacked_info_widget->setCurrentWidget(p_note_input);
+    p_note_input->p_text_edit->setFocus();
 
     if(sender() == p_password_input)
     {
         connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(processCreateNewElement()), Qt::UniqueConnection);
-//        lockOtherWidgets();
     }
     else
         disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(processCreateNewElement()));

@@ -23,6 +23,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
+#macx:ICON = $${PWD}/myapp.icns
+
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
@@ -46,3 +48,6 @@ HEADERS += \
 
 RESOURCES += \
     res/res.qrc
+
+DISTFILES += \
+    res/icon.icns
