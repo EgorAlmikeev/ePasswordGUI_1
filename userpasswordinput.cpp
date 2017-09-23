@@ -99,7 +99,7 @@ void UserPasswordInput::userPasswordCheckBoxToggled()
         setPasswordMaximumLength(20);
         p_slider->setValue(20);
 
-        p_line_edit->clear();
+//        p_line_edit->clear();
     }
     else
     {

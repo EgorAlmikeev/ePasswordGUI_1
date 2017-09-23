@@ -6,8 +6,7 @@ ePasswordCore::ePasswordCore()
 
     QDir::home().mkdir("ePasswordSaves");
     data_file.setFileName(QDir::home().path() + "/ePasswordSaves/ePasswordSaves.txt");
-//    qDebug() << QDir::home().path() + "/ePasswordSaves.txt";
-//    p_cryptor = new Cryptor(data_file.fileName());
+    p_cryptor = new Cryptor(data_file.fileName());
 
     if(data_file.exists() && data_file.size() > 0)
         readFile();
@@ -25,7 +24,7 @@ void ePasswordCore::readFile()
         elements.clear();
         buffer.clear();
 
-//        p_cryptor->decryptFile();
+        p_cryptor->decryptFile();
 
         data_file.open(QFile::ReadOnly);
 
@@ -75,7 +74,7 @@ void ePasswordCore::readFile()
 
     data_file.close();
 
-//    p_cryptor->encryptFile();
+    p_cryptor->encryptFile();
 }
 
 void ePasswordCore::writeFile()
@@ -85,7 +84,7 @@ void ePasswordCore::writeFile()
 
     QString value;
 
-//    p_cryptor->decryptFile();
+    p_cryptor->decryptFile();
 
     for(iter = elements.begin(); iter != elements.end(); ++iter)
     {
@@ -97,7 +96,7 @@ void ePasswordCore::writeFile()
     data_file.write(buffer);
     data_file.close();
 
-//    p_cryptor->encryptFile();
+    p_cryptor->encryptFile();
 }
 
 void ePasswordCore::addElement(QString name, QString password, QString note)
