@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     w.setFocus();
     w.setGeometry(400, 200, 700, 523);
     w.processRefreshScrollArea();
-//    w.setWindowIcon(QIcon(":/icon.icns"));
+    w.setWindowIcon(QIcon(":/icon.icns"));
 
     return a.exec();
 }

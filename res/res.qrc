@@ -9,4 +9,7 @@
         <file>removeall.png</file>
         <file>bg2.jpg</file>
     </qresource>
+    <qresource prefix="/">
+        <file>icon.icns</file>
+    </qresource>
 </RCC>
