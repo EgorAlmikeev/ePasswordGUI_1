@@ -2,6 +2,7 @@
 
 UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
 {
+    qDebug() << "password input constructor";
     p_central_grid_layout = new QGridLayout;
     setLayout(p_central_grid_layout);
 
@@ -83,6 +84,7 @@ UserPasswordInput::UserPasswordInput(QWidget *parent) : QWidget(parent)
 
 void UserPasswordInput::userPasswordCheckBoxToggled()
 {
+    qDebug() << "password input";
     if(p_user_input_checkbox->isChecked())
     {
         p_generate_button->setEnabled(false);
@@ -120,6 +122,7 @@ void UserPasswordInput::userPasswordCheckBoxToggled()
 
 void UserPasswordInput::checkPassword()
 {
+    qDebug() << "password input check password";
     if(p_line_edit->text().length() >= password_minimum_length && !p_line_edit->text().contains(' '))
     {
         p_next_button->setEnabled(true);
@@ -134,6 +137,7 @@ void UserPasswordInput::checkPassword()
 
 void UserPasswordInput::generateButtonClicked()
 {
+    qDebug() << "password input generate button clicked";
     if(p_password_simbols != nullptr)
         delete p_password_simbols;
 
@@ -166,28 +170,33 @@ void UserPasswordInput::generateButtonClicked()
 
 void UserPasswordInput::nextButtonClicked()
 {
+    qDebug() << "password input next button clicked";
     emit sendPassword(p_line_edit->text());
     setVisible(false);
 }
 
 void UserPasswordInput::setPasswordMaximumLength(int max)
 {
+    qDebug() << "password input set password maximum " << max;
     p_line_edit->setMaxLength(max);
     password_maximum_length = max;
 }
 
 void UserPasswordInput::setPasswordMinimumLength(int min)
 {
+    qDebug() << "password input set password minimum " << min;
     password_minimum_length = min;
 }
 
 void UserPasswordInput::setText(QString string)
 {
+    qDebug() << "password input set text " << string;
     p_label->setText(string);
 }
 
 void UserPasswordInput::clearInput()
 {
+    qDebug() << "password input clear input";
     p_line_edit->clear();
 
     p_letters_checkbox->setChecked(true);
@@ -200,6 +209,7 @@ void UserPasswordInput::clearInput()
 //password simbols generation functions
 std::string UserPasswordInput::generatePassword()
 {
+    qDebug() << "password input generate password";
     if(p_password_simbols == nullptr)
         return "";
 
@@ -217,6 +227,7 @@ std::string UserPasswordInput::generatePassword()
 
 bool UserPasswordInput::setPasswordSimbolsDigits()
 {
+    qDebug() << "password input set password simbols D";
     p_password_simbols = new char[11];
 
     for(int i = 0; i < 10; ++i)
@@ -228,6 +239,7 @@ bool UserPasswordInput::setPasswordSimbolsDigits()
 }
 bool UserPasswordInput::setPasswordSimbolsLetters()
 {
+    qDebug() << "password input set password simbols L";
     p_password_simbols = new char[53];
 
     for(int i = 0; i < 26; ++i)
@@ -241,6 +253,7 @@ bool UserPasswordInput::setPasswordSimbolsLetters()
 }
 bool UserPasswordInput::setPasswordSimbolsSpecials()
 {
+    qDebug() << "password input set password simbols S";
     p_password_simbols = new char[16];
 
     for(int i = 0; i < 15; ++i)
@@ -252,6 +265,7 @@ bool UserPasswordInput::setPasswordSimbolsSpecials()
 }
 bool UserPasswordInput::setPasswordSimbolsDigitsLetters()
 {
+    qDebug() << "password input set password simbols LD";
     p_password_simbols = new char[63];
 
     for(int i = 0; i < 26; ++i)
@@ -267,6 +281,7 @@ bool UserPasswordInput::setPasswordSimbolsDigitsLetters()
 }
 bool UserPasswordInput::setPasswordSimbolsDigitsSpecials()
 {
+    qDebug() << "password input set password simbols DS";
     p_password_simbols = new char[26];
 
     for(int i = 0; i < 25; ++i)
@@ -278,6 +293,7 @@ bool UserPasswordInput::setPasswordSimbolsDigitsSpecials()
 }
 bool UserPasswordInput::setPasswordSimbolsLettersSpecials()
 {
+    qDebug() << "password input set password simbols LS";
     p_password_simbols = new char[68];
 
     for(int i = 0; i < 26; ++i)
@@ -293,6 +309,7 @@ bool UserPasswordInput::setPasswordSimbolsLettersSpecials()
 }
 bool UserPasswordInput::setPasswordSimbolsDigitsLettersSpecials()
 {
+    qDebug() << "password input set password simbols LSD";
     p_password_simbols = new char[78];
 
     for(int i = 0; i < 26; ++i)

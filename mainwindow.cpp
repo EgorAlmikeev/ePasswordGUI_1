@@ -21,6 +21,7 @@ int MainWindow::element_buttons_height = 50;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
+    qDebug() << "constructor";
     p_central_widget = new QLabel;
     p_grid_layout = new QGridLayout;
 
@@ -38,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent)
     p_null_widget = new QLabel;
     p_stacked_info_widget->addWidget(p_null_widget);
 
+    p_author_widget = new QWidget;
+
     scroll_widget_height = 0;
 
     setCentralWidget(p_central_widget);
@@ -45,7 +48,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     p_scroll_area->setWidget(p_scroll_area_widget);
     p_scroll_area_widget->setLayout(p_scroll_area_widget_layout);
-
 
     createObjectNames();
     createWidgetsPlacement();
@@ -59,6 +61,8 @@ MainWindow::MainWindow(QWidget *parent)
     createTakePasswordInputWidget();
     createTakeNoteInputWidget();
 
+    createAuthorWidgetSettings();
+
     if(!core.elements.empty())
         processReadElementsFromFile();
 
@@ -66,10 +70,13 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow()
-{}
+{
+    qDebug() << "destructor";
+}
 
 void MainWindow::createWidgetsPlacement()
 {
+    qDebug() << "create widgets placement";
     QHBoxLayout *p_add_wipe_layout = new QHBoxLayout;
 
     p_add_wipe_layout->setSpacing(0);
@@ -89,6 +96,7 @@ void MainWindow::createWidgetsPlacement()
 
 void MainWindow::createButtonsSettings()
 {
+    qDebug() << "buttons settings";
     //add button
     QPixmap add_pix(":/images/add.png");
 
@@ -133,6 +141,7 @@ void MainWindow::createButtonsSettings()
 
 void MainWindow::createObjectNames()
 {
+    qDebug() << "create object names";
     p_central_widget->setObjectName("central widget");
     p_grid_layout->setObjectName("grid");
 
@@ -146,24 +155,30 @@ void MainWindow::createObjectNames()
     p_scroll_area_widget_layout->setObjectName("scroll layout");
 
     p_author_button->setObjectName("author button");
+    p_author_widget->setObjectName("author widget");
 }
 
 void MainWindow::createScrollAreaSettings()
 {
+    qDebug() << "create scroll area settings";
     p_scroll_area_widget_layout->setMargin(0);
     p_scroll_area_widget_layout->setSpacing(0);
     p_scroll_area->setFixedWidth(230);
     p_scroll_area->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
     p_scroll_area->setFrameStyle(QFrame::Panel);
+    p_scroll_area->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    p_scroll_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 void MainWindow::createBackGround()
 {
+    qDebug() << "background create";
     p_central_widget->setPixmap(QPixmap(":/images/bg2.jpg"));
 }
 
 void MainWindow::createTakeNameInputWidget()
 {
+    qDebug() << "create take name widget";
     p_name_input = new UserNameInput;
 
     p_name_input->setNameMaximumLength(20);
@@ -178,6 +193,7 @@ void MainWindow::createTakeNameInputWidget()
 
 void MainWindow::createTakePasswordInputWidget()
 {
+    qDebug() << "create take password widget";
     p_password_input = new UserPasswordInput;
 
     p_password_input->setPasswordMaximumLength(20);
@@ -192,6 +208,7 @@ void MainWindow::createTakePasswordInputWidget()
 
 void MainWindow::createTakeNoteInputWidget()
 {
+    qDebug() << "create take note widget";
     p_note_input = new UserNoteInput;
 
     p_note_input->setText("note settings");
@@ -202,8 +219,9 @@ void MainWindow::createTakeNoteInputWidget()
     connect(p_note_input, SIGNAL(sendNote(QString)), SLOT(unlockOtherWidgets()));
 }
 
-void MainWindow::clearInputWidgets()
+void MainWindow::clearInput()
 {
+    qDebug() << "clear input";
     p_name_input->clearInput();
     p_password_input->clearInput();
     p_note_input->clearInput();
@@ -211,6 +229,7 @@ void MainWindow::clearInputWidgets()
 
 void MainWindow::createAuthorWidgetSettings()
 {
+    qDebug() << "create author widget settings";
     QTextEdit *p_about_text = new QTextEdit;
 
     p_about_text->setText("Hi! My name is York.\n"
@@ -290,11 +309,13 @@ void MainWindow::processCreateNewElement(QString name, QString password, QString
 
 void MainWindow::processRemoveElement()
 {
+    qDebug() << "process remove element";
     removeElement((ElementInfoWidget*) sender());
 }
 
 void MainWindow::removeElement(ElementInfoWidget *p_widget)
 {
+    qDebug() << "remove element";
     for(QList<ElementButton*>::iterator iter = element_buttons_list.begin(); iter != element_buttons_list.end(); ++iter)
         if(*iter == p_widget->p_pair_button)
         {
@@ -312,6 +333,7 @@ void MainWindow::removeElement(ElementInfoWidget *p_widget)
 
 void MainWindow::processWipeData()
 {
+    qDebug() << "process wipe data";
     QMessageBox *p_wipe_alert = new QMessageBox;
 
     p_wipe_alert->setText("All data will be deleted.\nAre you sure?");
@@ -347,9 +369,9 @@ void MainWindow::processWipeData()
 
 void MainWindow::processTakeName()
 {
-    qDebug() << "taking name";
+    qDebug() << "process take name";
 
-    clearInputWidgets();
+    clearInput();
     p_name_input->setVisible(true);
     p_stacked_info_widget->setCurrentWidget(p_name_input);
     p_name_input->p_line_edit->setFocus();
@@ -366,9 +388,9 @@ void MainWindow::processTakeName()
 
 void MainWindow::processTakePassword()
 {
-    qDebug() << "taking password";
+    qDebug() << "process take password";
 
-    clearInputWidgets();
+    clearInput();
     p_password_input->setVisible(true);
     p_stacked_info_widget->setCurrentWidget(p_password_input);
     p_password_input->p_generate_button->setFocus();
@@ -385,9 +407,9 @@ void MainWindow::processTakePassword()
 
 void MainWindow::processTakeNote()
 {
-    qDebug() << "taking note";
+    qDebug() << "process take note";
 
-    clearInputWidgets();
+    clearInput();
     p_note_input->setVisible(true);
     p_stacked_info_widget->setCurrentWidget(p_note_input);
     p_note_input->p_text_edit->setFocus();
@@ -402,6 +424,7 @@ void MainWindow::processTakeNote()
 
 void MainWindow::createEditConnections()
 {
+    qDebug() << "create edit connections";
     ElementInfoWidget *p_sender = (ElementInfoWidget*) sender();
 
     //name
@@ -428,6 +451,7 @@ void MainWindow::createEditConnections()
 
 void MainWindow::destroyEditConnections()
 {
+    qDebug() << "destroy edit connections";
     ElementInfoWidget *p_sender = (ElementInfoWidget*) sender();
 
     //name
@@ -442,7 +466,7 @@ void MainWindow::destroyEditConnections()
     disconnect(p_note_input, SIGNAL(sendNote(QString)), this, SLOT(destroyEditConnections()));
 
     processElementEdited(p_sender);
-    clearInputWidgets();
+    clearInput();
     p_name_input->p_next_button->setText("Next");
     p_password_input->p_next_button->setText("Next");
     p_note_input->p_next_button->setText("Next");
@@ -469,6 +493,7 @@ void MainWindow::processElementEdited(ElementInfoWidget *p_widget)
 
 void MainWindow::clearElementInfoWidget()
 {
+    qDebug() << "show empty widget";
     p_stacked_info_widget->setCurrentWidget(p_null_widget);
 }
 
@@ -480,14 +505,13 @@ void MainWindow::setElementInfoWidget(ElementInfoWidget *p_widget)
 
 void MainWindow::showAuthorWidget()
 {
-    p_author_widget = new QWidget;
-    p_author_widget->setObjectName("author widget");
-    createAuthorWidgetSettings();
+    qDebug() << "show author widget";
     p_stacked_info_widget->setCurrentWidget(p_author_widget);
 }
 
 ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString password, QString note)
 {
+    qDebug() << "create new info label";
     ElementInfoWidget *p_new_widget = new ElementInfoWidget;
 
     ElementButton *p_new_button = new ElementButton;
@@ -526,21 +550,25 @@ ElementInfoWidget * MainWindow::createNewInfoLabel(QString name, QString passwor
 
 void MainWindow::copyToNameBuffer(QString string)
 {
+    qDebug() << "copy name " << string;
     name_buffer = string;
 }
 
 void MainWindow::copyToPasswordBuffer(QString string)
 {
+    qDebug() << "copy password " << string;
     password_buffer = string;
 }
 
 void MainWindow::copyToNoteBuffer(QString string)
 {
+    qDebug() << "copy note " << string;
     note_buffer = string;
 }
 
 void MainWindow::setOtherWidgetsEabled(bool boolean)
 {
+    qDebug() << "set widgets enabled " << boolean;
     p_add_button->setEnabled(boolean);
     p_wipe_button->setEnabled(boolean);
 
@@ -551,16 +579,19 @@ void MainWindow::setOtherWidgetsEabled(bool boolean)
 
 void MainWindow::lockOtherWidgets()
 {
+    qDebug() << "lock other widgets";
     setOtherWidgetsEabled(false);
 }
 
 void MainWindow::unlockOtherWidgets()
 {
+    qDebug() << "unlock other widgets";
     setOtherWidgetsEabled(true);
 }
 
 void MainWindow::processReadElementsFromFile()
 {
+    qDebug() << "read elements from file";
     QString name, password, note;
 
     core.readFile();

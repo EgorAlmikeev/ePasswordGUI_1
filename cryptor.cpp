@@ -6,20 +6,25 @@ using namespace std;
 
 Cryptor::Cryptor()
 {
+    qDebug() << "cryptor constructor 1";
     data.clear();
 }
 
 Cryptor::Cryptor(QString crypt_file_name)
 {
+    qDebug() << "cryptor constructor 2";
     data.clear();
     setCryptFileName(crypt_file_name);
 }
 
 Cryptor::~Cryptor()
-{}
+{
+    qDebug() << "cryptor destructor";
+}
 
 Cryptor::CryptorException::CryptorException(QString _what)
 {
+    qDebug() << "cryptor exception";
     what = _what;
 }
 
@@ -30,11 +35,13 @@ void Cryptor::CryptorException::errmsg()
 
 void Cryptor::setCryptFileName(QString crypt_file_name)
 {
+    qDebug() << "set crypt file name";
     file.setFileName(crypt_file_name);
 }
 
 void Cryptor::encryptFile()
 {
+    qDebug() << "encrypt file";
     if(!file.exists())
         throw CryptorException("file \"" + file.fileName() + "\" does not exist...");
 
@@ -78,6 +85,7 @@ void Cryptor::encryptFile()
 
 void Cryptor::decryptFile()
 {
+    qDebug() << "decrypt file";
     if(!file.exists())
         throw CryptorException("file \"" + file.fileName() + "\" does not exist...");
 
@@ -121,5 +129,6 @@ void Cryptor::decryptFile()
 
 QString Cryptor::getCryptFileName()
 {
+    qDebug() << "get crypt file name";
     return file.fileName();
 }

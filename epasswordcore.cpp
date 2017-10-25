@@ -3,7 +3,7 @@
 
 ePasswordCore::ePasswordCore()
 {
-
+    qDebug() << "core constructor";
     QDir::home().mkdir(".ePasswordSaves");
     data_file.setFileName(QDir::home().path() + "/.ePasswordSaves/ePasswordSaves.txt");
     p_cryptor = new Cryptor(data_file.fileName());
@@ -19,6 +19,7 @@ ePasswordCore::ePasswordCore()
 
 void ePasswordCore::readFile()
 {
+    qDebug() << "core read file";
     try
     {
         elements.clear();
@@ -79,6 +80,7 @@ void ePasswordCore::readFile()
 
 void ePasswordCore::writeFile()
 {
+    qDebug() << "core write file";
     buffer.clear();
     data_file.open(QFile::WriteOnly);
 
@@ -101,6 +103,7 @@ void ePasswordCore::writeFile()
 
 void ePasswordCore::addElement(QString name, QString password, QString note)
 {
+    qDebug() << "core add element";
     elements.insertMulti(name, note);
     elements.insertMulti(name, password);
     elements.insertMulti(name, name);
@@ -108,6 +111,7 @@ void ePasswordCore::addElement(QString name, QString password, QString note)
 
 void ePasswordCore::removeElement(QString name)
 {
+    qDebug() << "core remove element";
     iter = elements.find(name);
 
     elements.erase(iter++);

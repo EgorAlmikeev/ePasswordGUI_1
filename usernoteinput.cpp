@@ -1,7 +1,9 @@
 #include "usernoteinput.h"
+#include <QDebug>
 
 UserNoteInput::UserNoteInput(QWidget *parent) : QWidget(parent)
 {
+    qDebug() << "note input constructor";
     p_central_vertical_layout = new QVBoxLayout;
     setLayout(p_central_vertical_layout);
 
@@ -30,6 +32,7 @@ UserNoteInput::UserNoteInput(QWidget *parent) : QWidget(parent)
 
 void UserNoteInput::nextButtonClicked()
 {
+    qDebug() << "note input next button clicked";
     if(p_text_edit->toPlainText().length() == 0)
         p_text_edit->setText(" ");
 
@@ -66,11 +69,13 @@ void UserNoteInput::nextButtonClicked()
 
 void UserNoteInput::setText(QString string)
 {
+    qDebug() << "note input set text " << string;
     p_label->setText(string);
 }
 
 void UserNoteInput::clearInput()
 {
+    qDebug() << "note input clear input";
     p_text_edit->clear();
     p_text_edit->setFocus();
 }

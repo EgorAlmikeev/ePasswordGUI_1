@@ -4,6 +4,7 @@
 
 ElementButton::ElementButton(QWidget *parent) : QWidget(parent)
 {
+    qDebug() << "element button constructor";
     p_central_widget = new QPushButton;
     p_central_layout = new QVBoxLayout;
 
@@ -26,6 +27,7 @@ ElementButton::ElementButton(QWidget *parent) : QWidget(parent)
 
 void ElementButton::setPairWidget(ElementInfoWidget *pair)
 {
+    qDebug() << "button set pair widget " << pair->objectName();
     p_pair_widget = pair;
 }
 
@@ -38,11 +40,13 @@ void ElementButton::elementButtonClicked()
 
 void ElementButton::setText(QString text)
 {
+    qDebug() << "button set text " << text;
     p_central_widget->setText(text);
     button_text = text;
 }
 
 bool element_buttons_compare(ElementButton* b1, ElementButton* b2)
 {
+    qDebug() << "element buttons compare";
     return b1->button_text < b2->button_text ? true : false;
 }

@@ -62,7 +62,7 @@ private :
     void createTakePasswordInputWidget();
     void createTakeNoteInputWidget();
 
-    void clearInputWidgets();
+    void clearInput();
 
     void createWidgetsPlacement();
     void createBackGround();

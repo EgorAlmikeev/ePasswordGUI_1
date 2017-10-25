@@ -1,8 +1,10 @@
 #include "elementinfowidget.h"
 #include "elementbutton.h"
+#include <QDebug>
 
 ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
 {
+    qDebug() << "info widget constructor";
     //creating widgets
     p_central_vertical_layout = new QBoxLayout(QBoxLayout::TopToBottom);
 
@@ -32,6 +34,10 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
     p_name_text_edit->setReadOnly(true);
     p_password_text_edit->setReadOnly(true);
     p_note_text_edit->setReadOnly(true);
+
+    p_name_text_edit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    p_password_text_edit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    p_note_text_edit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     //placement
     setLayout(p_central_vertical_layout);
@@ -161,15 +167,19 @@ ElementInfoWidget::ElementInfoWidget(QWidget *parent) : QWidget(parent)
 }
 
 ElementInfoWidget::~ElementInfoWidget()
-{}
+{
+    qDebug() << "info widget destructor";
+}
 
 void ElementInfoWidget::setPairButton(ElementButton *p_button)
 {
+    qDebug() << "info widget set pair button " << p_button->objectName();
     p_pair_button = p_button;
 }
 
 void ElementInfoWidget::setName(QString _name)
 {
+    qDebug() << "info widget set name " << _name;
     name = _name;
     p_name_text_edit->setText("Name:\n" + _name);
     p_pair_button->setText(_name);
@@ -179,6 +189,7 @@ void ElementInfoWidget::setName(QString _name)
 
 void ElementInfoWidget::setPassword(QString _password)
 {
+    qDebug() << "info widget set password " << _password;
     password = _password;
     p_password_text_edit->setText("Password:\n" + _password);
 
@@ -187,6 +198,7 @@ void ElementInfoWidget::setPassword(QString _password)
 
 void ElementInfoWidget::setNote(QString _note)
 {
+    qDebug() << "info widget set note " << _note;
     std::string temp = _note.toStdString();
 
     for(int i = 0; i < temp.length(); ++i)
@@ -205,15 +217,18 @@ void ElementInfoWidget::setNote(QString _note)
 
 void ElementInfoWidget::nameCopyButtonClicked()
 {
+    qDebug() << "info widget name copy button clicked";
     QApplication::clipboard()->setText(name);
 }
 
 void ElementInfoWidget::passwordCopyButtonClicked()
 {
+    qDebug() << "info widget password copy button clicked";
     QApplication::clipboard()->setText(password);
 }
 
 void ElementInfoWidget::noteCopyButtonClicked()
 {
+    qDebug() << "info widget note copy button clicked";
     QApplication::clipboard()->setText(note);
 }

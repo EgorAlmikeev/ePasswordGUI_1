@@ -3,6 +3,7 @@
 
 UserNameInput::UserNameInput(QWidget *parent) : QWidget(parent)
 {
+    qDebug() << "name input constructor";
     p_central_grid_layout = new QGridLayout;
     p_label = new QLabel;
     p_line_edit = new QLineEdit;
@@ -38,27 +39,32 @@ UserNameInput::UserNameInput(QWidget *parent) : QWidget(parent)
 
 void UserNameInput::nextButtonClicked()
 {
+    qDebug() << "name input next button clicked";
     emit sendName(p_line_edit->text());
     setVisible(false);
 }
 
 void UserNameInput::setText(QString text)
 {
+    qDebug() << "name input set text " << text;
     p_label->setText(text);
 }
 
 void UserNameInput::setNameMaximumLength(int max)
 {
+    qDebug() << "name input set name max " << max;
     p_line_edit->setMaxLength(max);
 }
 
 void UserNameInput::setNameMinimumLength(int min)
 {
+    qDebug() << "name input set name minimum " << min;
     text_minimum = min;
 }
 
 void UserNameInput::checkText()
 {
+    qDebug() << "name input check text";
     if(p_line_edit->text().length() >= text_minimum && !p_line_edit->text().contains(' ')/* && !MainWindow::p_core->element_multi_map.contains(p_line_edit->text() + '\n')*/)
     {
         p_next_button->setEnabled(true);
@@ -73,6 +79,7 @@ void UserNameInput::checkText()
 
 void UserNameInput::clearInput()
 {
+    qDebug() << "name input clear input";
     p_line_edit->clear();
     checkText();
 }
